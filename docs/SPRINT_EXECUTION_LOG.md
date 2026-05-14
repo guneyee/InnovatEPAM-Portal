@@ -37,13 +37,14 @@
 6. Stories aligned to current spec: Yes
 
 ## Repository Share Status
-1. Git remote configured: No
-2. Action required: Add remote URL and share with instructors.
-3. Suggested command:
+1. Git remote configured: Yes (`origin -> git@github.com:guneyee/InnovatEPAM-Portal.git`)
+2. Default branch: `main` (tracking `origin/main`)
+3. Action required: Share repository link with instructors (manual confirmation).
+4. Suggested command:
 
 ```bash
 git remote add origin <REPOSITORY_URL>
-git push -u origin master
+git push -u origin main
 ```
 
 ## Showcase Status

@@ -1,0 +1,62 @@
+# InnovatEPAM Portal - API Demo
+# REST Client extension required (humao.rest-client)
+# Click "Send Request" above each request
+
+@baseUrl = http://localhost:3000
+
+### 1. Health Check
+GET {{baseUrl}}/health
+
+###
+
+### 2. Register User
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "demo2@epam.com",
+  "password": "Demo1234"
+}
+
+###
+
+### 3. Login (copy token from response)
+# @name login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "demo2@epam.com",
+  "password": "Demo1234"
+}
+
+###
+
+### 4. Submit Idea (paste token below)
+@token = BURAYA_TOKEN_YAPISTIR
+
+POST {{baseUrl}}/api/ideas
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "AI-powered onboarding",
+  "description": "Automate employee onboarding using AI assistants",
+  "category": "Technical"
+}
+
+###
+
+### 5. List Ideas
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "demo2@epam.com",
+  "password": "Demo1234"
+}
+
+###
+
+GET {{baseUrl}}/api/ideas
+Authorization: Bearer {{token}}

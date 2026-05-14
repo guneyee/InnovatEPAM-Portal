@@ -1,44 +1,83 @@
-# Product Requirements Document - InnovatEPAM Portal
+# InnovatEPAM Portal - Employee Innovation Management Platform
 
-## 1. Executive Summary
-InnovatEPAM Portal is an employee innovation management platform enabling secure idea submission, collaborative evaluation, and workflow tracking. Phase 1 (MVP) delivers core authentication, submission, and basic evaluation functionality.
+## Project Overview
 
-## 2. Product Vision
-Enable organizations to capture, evaluate, and act on employee innovation ideas through a simple, secure, AI-native platform.
+InnovatEPAM Portal is a comprehensive digital platform designed to streamline the innovation process within EPAM, enabling employees to submit creative ideas, facilitating expert evaluation, and managing the implementation of top-tier innovations with dedicated budget allocation.
 
-## 3. Goals (Phase 1)
-- [ ] Establish secure authentication foundation
-- [ ] Enable idea submission with file attachments
-- [ ] Implement basic evaluation workflow
-- [ ] Demonstrate AI-native development workflow
+## High-Level Features
 
-## 4. Success Metrics
-- User registration/login working
-- File uploads processed correctly
-- Status workflow transitions valid
-- Tests passing at 70%+ coverage
-- Demo runs without errors
+### 1. Intelligent Idea Submission System
 
-## 5. Target Users
-- **Submitters**: Employees submitting ideas
-- **Evaluators**: Managers/team leads reviewing ideas
-- **Admins**: System administrators managing users and workflows
+- **Smart Submission Forms:** Dynamic forms that adapt based on idea category (technical, process improvement, client solutions, etc.)
+- **Multi-Media Support:** Ability to attach documents, prototypes, mockups, videos, and presentations
+- **Draft Management:** Save, edit, and iterate on ideas before final submission
 
-## 6. Out of Scope (Phase 1)
-- Email notifications
-- Scoring/rating system
-- Multi-stage reviews
-- Advanced analytics
-- Mobile app
+### 2. Advanced Admin Evaluation Workflow
 
-## 7. Constraints
-- Single file attachment per idea
-- Basic role model (submitter, evaluator, admin)
-- Simple status model (submitted, under_review, accepted, rejected)
-- Local MongoDB for MVP
-- JWT-based auth (no OAuth yet)
+- **Multi-Stage Review Process:** Configurable evaluation stages (initial screening, technical review, business impact assessment, final selection)
+- **Blind Review Options:** Anonymous evaluation capabilities to ensure unbiased assessment
 
 ---
-**Author**: Development Team  
-**Status**: Active  
-**Phase**: 1 (MVP)
+
+## Kick-off the Course Project
+
+### Goal
+
+Create PRDs and Tasks for the InnovatEPAM Portal project using GitHub SpecKit.
+
+### Outcome
+
+1. Have GitHub SpecKit configured for your project
+2. Configured `constitution.md` file
+3. Created `spec.md` file
+4. Created `plan.md`, `data-model.md`, `quickstart.md`, `research.md` files
+5. Created `tasks.md` file
+6. Try `/speckit.clarify` and `/speckit.analyze` commands
+
+### Example SpecKit Commands
+
+```bash
+# 1. Initialize SpecKit
+uvx --from git+https://github.com/github/spec-kit.git specify init <PROJECT_NAME>
+```
+
+```
+# 2. Configure constitution
+/speckit.constitution declare principles of clean code, simple and responsive UI/UX and minimal dependencies. The project must use next.js, react and tailwind.
+```
+
+```
+# 3. Specify project
+/speckit.specify InnovatEPAM Portal is a comprehensive digital platform designed to streamline the innovation process within EPAM, enabling employees to submit creative ideas, facilitating expert evaluation, and managing the implementation of top-tier innovations with dedicated budget allocation.
+
+High-Level Features:
+- Intelligent Idea Submission System
+	- Smart Submission Forms: Dynamic forms that adapt based on idea category (technical, process improvement, client solutions, etc.)
+	- Multi-Media Support: Ability to attach documents, prototypes, mockups, videos, and presentations
+	- Draft Management: Save, edit, and iterate on ideas before final submission
+```
+
+```
+# 4. Clarify requirements
+/speckit.clarify
+```
+
+```
+# 5. Plan implementation
+/speckit.plan plan this using tailwind @theme for theme colours, SQLite for data persistence and shadcn for UI components. Use date-fns for date formatting. No unit tests, integration tests or e2e tests needed.
+```
+
+```
+# 6. Generate tasks
+/speckit.tasks
+```
+
+```
+# 7. Analyze specification
+/speckit.analyze
+```
+
+---
+
+**Document Version:** 1.0
+**Last Updated:** 2025-11-28

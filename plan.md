@@ -1,70 +1,54 @@
 # Implementation Plan - InnovatEPAM Portal
 
-## 1. Scope
-Deliver the core platform increment covering dynamic submission, drafts, attachments, multi-stage evaluation, and blind review controls.
+## Scope
+Deliver the MVP with authentication, idea submission, file attachment, listing, viewing, and admin status updates.
 
-## 2. Delivery Phases
-
-### Phase A - Foundation
-1. Bootstrap Next.js app shell and layout.
-2. Configure Tailwind theme tokens and shadcn/ui.
-3. Set up SQLite connection and baseline schema.
+## Phase 1 - Foundation
+1. Initialize project structure.
+2. Configure styling and core layout.
+3. Set up persistence and basic data models.
 
 Exit criteria:
-1. App boots and renders core layout.
-2. Database tables can be created from migration script.
+1. App boots locally.
+2. Data layer is connected.
 
-### Phase B - Submission and Drafts
-1. Implement dynamic submission form.
-2. Implement draft save/edit/submit flows.
-3. Implement attachment upload and metadata persistence.
-
-Exit criteria:
-1. Submitter can complete full end-to-end draft to submit scenario.
-
-### Phase C - Evaluation Workflow
-1. Implement stage configuration for admins.
-2. Implement evaluator review actions.
-3. Implement stage transition and history logging.
+## Phase 2 - Authentication
+1. Implement registration.
+2. Implement login and logout.
+3. Add role-based access control.
 
 Exit criteria:
-1. Admin can run idea through all enabled stages.
+1. Users can authenticate.
+2. Roles restrict admin-only actions.
 
-### Phase D - Blind Review and Hardening
-1. Implement blind review toggle per stage.
-2. Apply conditional identity masking for evaluator views.
-3. Perform manual validation via quickstart scenarios.
+## Phase 3 - Idea Submission
+1. Implement submission form.
+2. Add file attachment support.
+3. Validate required fields.
 
 Exit criteria:
-1. Blind review behavior validated in role-specific walkthrough.
+1. Users can submit ideas successfully.
 
-## 3. Dependencies
-1. Next.js, React, Tailwind CSS, shadcn/ui.
-2. SQLite driver and migration tool.
-3. date-fns for date formatting.
+## Phase 4 - Listing and Viewing
+1. Implement idea list view.
+2. Implement idea detail view.
+3. Display current status.
 
-## 4. Risks and Mitigation
-1. Dynamic form complexity
-   - Mitigation: use schema-driven field config and strict category mappings.
-2. Attachment security risk
-   - Mitigation: whitelist mime types and enforce strict size limits.
-3. Workflow drift
-   - Mitigation: centralize stage transition policy in one module.
+Exit criteria:
+1. Ideas can be browsed and inspected.
 
-## 5. Tracking
-Current status:
-1. Constitution drafted.
-2. Spec drafted.
-3. Research documented.
-4. Data model pending implementation.
-5. Tasks ready for execution.
+## Phase 5 - Evaluation Workflow
+1. Implement admin status updates.
+2. Add evaluation comments.
+3. Enforce allowed transitions.
 
-## 6. Milestone Checklist
-1. M1: Foundation complete.
-2. M2: Submission + drafts complete.
-3. M3: Evaluation stages complete.
-4. M4: Blind review complete.
-5. M5: Manual acceptance walkthrough complete.
+Exit criteria:
+1. Admin workflow works end to end.
 
-Document Version: 1.0
-Last Updated: 2026-05-14
+## Phase 6 - Validation and Documentation
+1. Manually validate core flows.
+2. Complete project summary.
+3. Prepare demo notes.
+
+Exit criteria:
+1. MVP is ready for showcase.

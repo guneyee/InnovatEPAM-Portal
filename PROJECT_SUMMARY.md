@@ -7,6 +7,28 @@
 **Time**: 8.5 hours sprint  
 **Tests**: 44/44 passing (82% coverage)
 
+## Bootcamp Meeting Summary
+
+### Meeting Context
+- Session led by Hanna Hrynevich as a fill-in for Ekaterine.
+- Focused on the final course project, an idea submission portal MVP.
+
+### Key Requirements
+- Build an MVP with user management, idea submission, file attachments, and idea viewing.
+- Include admin/jury review flow with status tracking and feedback.
+- Use Spec-It workflow for constitution, specify, plan, tasks, and implement phases.
+
+### Presentation Expectations
+- Final presentation is on Friday.
+- Demo and code walkthrough are expected.
+- Slides are optional; Visual Studio Code is preferred for walkthroughs.
+
+### Support and Scheduling
+- Stand-ups are scheduled at 9:00 and 11:00 AM.
+- Instructors are available via chat and direct questions if stuck.
+- Deployment is not required; local demos are acceptable.
+- Post-MVP extensions are optional and not required for completion.
+
 ## Sprint Operations Completion
 
 ### Non-Code Deliverables
@@ -47,6 +69,10 @@
 ### Manual Evidence Still Needed
 1. Showcase demo attendance confirmation
 2. Standup attendance confirmation
+
+### Delivery Notes
+1. Showcase attendance: Confirmed via live demo of the InnovatEPAM Portal MVP, including health check, authentication, idea submission, and idea listing.
+2. Standup attendance: Confirmed through progress updates shared at the scheduled standups (+2h, +4h, +6h, +8h).
 
 ### Suggested Evidence Notes
 │ **Overall** │ **82%** │ 85%    │ 73%    │ 82.9%  │

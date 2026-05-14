@@ -1,86 +1,73 @@
 # Specification - InnovatEPAM Portal
 
-## 1. Problem Statement
-Employees need a structured platform to submit innovation ideas while administrators need a transparent and configurable workflow to evaluate and approve high-value ideas.
+## Problem Statement
+Employees need a structured portal to submit innovation ideas, and administrators need a transparent way to review and manage those ideas.
 
-## 2. Objectives
-1. Capture high-quality ideas with context-aware submission inputs.
-2. Enable iterative drafting before final submission.
-3. Support rich attachments to improve review quality.
-4. Provide configurable multi-stage admin evaluation.
-5. Support optional blind review for unbiased assessment.
+## Objectives
+1. Allow employees to register and authenticate.
+2. Let submitters create ideas with required fields and attachments.
+3. Let users view submitted ideas.
+4. Let admins review ideas and update their status.
+5. Keep the workflow simple and manual-validation friendly.
 
-## 3. Users and Roles
-1. Submitter: creates drafts, submits ideas, tracks status.
-2. Evaluator: reviews assigned ideas in one or more stages.
-3. Admin: configures stages, controls reviewer assignment, finalizes outcomes.
+## Users and Roles
+1. Submitter: creates and tracks ideas.
+2. Admin/Evaluator: reviews ideas and updates status.
 
-## 4. Functional Requirements
+## Functional Requirements
 
-### FR-1 Dynamic Idea Submission
-1. System shall provide category selection: Technical, Process Improvement, Client Solution, Other.
-2. System shall show base fields for all categories: title, summary, problem, proposed solution, impact estimate.
-3. System shall render category-specific fields based on selected category.
-4. System shall prevent submission when required fields are missing.
+### FR-1 User Authentication
+1. System shall support registration with email and password.
+2. System shall support login and logout.
+3. System shall distinguish submitters from admins/evaluators.
 
 Acceptance criteria:
-1. Changing category updates the form sections in real time.
-2. Required fields are visually indicated and validated before submit.
+1. Users can register successfully.
+2. Valid credentials produce a session/token.
+3. Roles control access to privileged actions.
 
-### FR-2 Draft Management
-1. System shall allow saving an idea as draft without full required-field enforcement.
-2. System shall allow editing an existing draft.
-3. System shall allow converting draft to submitted idea.
-4. System shall persist draft autosave timestamp.
-
-Acceptance criteria:
-1. Draft appears in submitter draft list immediately after save.
-2. Submitting draft applies full validation rules.
-
-### FR-3 Multi-Media Attachments
-1. System shall accept up to 5 attachments per idea.
-2. System shall support mime groups: document, image, video, presentation.
-3. System shall enforce max size 25 MB per file.
-4. System shall store metadata: file name, type, size, upload time.
+### FR-2 Idea Submission
+1. System shall provide a form for title, description, and category.
+2. System shall support a single file attachment per idea.
+3. System shall validate required fields before submission.
 
 Acceptance criteria:
-1. Unsupported file types are rejected with actionable error.
-2. Oversized files are rejected before persistence.
+1. A valid idea can be submitted.
+2. Missing required fields are rejected.
+3. Unsupported attachments are rejected.
 
-### FR-4 Multi-Stage Evaluation Workflow
-1. System shall support configurable stages: Screening, Technical, Business Impact, Final Decision.
-2. Admin shall be able to enable/disable stages.
-3. Idea shall progress only to the next enabled stage.
-4. System shall record stage decision, comment, evaluator id, timestamp.
-
-Acceptance criteria:
-1. Invalid stage transition is blocked.
-2. Stage history is visible in chronological order.
-
-### FR-5 Blind Review Option
-1. Admin shall be able to enable blind review mode per stage.
-2. In blind mode, evaluator view shall hide submitter identifying data.
-3. Audit log shall retain submitter identity for admins.
+### FR-3 Idea Listing and Viewing
+1. System shall list submitted ideas.
+2. System shall show idea details.
+3. System shall show the current status of each idea.
 
 Acceptance criteria:
-1. Evaluator cannot see submitter identity fields when blind mode is enabled.
-2. Admin can still access full record for governance.
+1. Submitters can view their ideas.
+2. Admins can view all ideas.
+3. Idea details include status.
 
-## 5. Non-Functional Requirements
-1. Responsive UI on modern desktop and mobile browsers.
-2. Role-based access control on all restricted actions.
-3. SQLite persistence with migration-safe schema updates.
-4. Date/time rendering via date-fns in consistent locale format.
+### FR-4 Evaluation Workflow
+1. System shall support idea statuses: submitted, under review, accepted, rejected.
+2. Admins shall be able to update the status of an idea.
+3. Admins shall be able to leave comments during evaluation.
 
-## 6. Assumptions
-1. Internal users authenticate through project-local auth for now.
-2. File storage is local filesystem in kickoff stage.
-3. Single-tenant deployment model.
+Acceptance criteria:
+1. Status updates follow allowed transitions.
+2. Comments are saved with the review action.
+3. Privileged actions require admin access.
 
-## 7. Open Questions
-1. Should blind review apply to all stages or only selected stages?
-2. Do admins need weighted scoring in this phase or a later phase?
-3. Should attachments be virus-scanned in current scope?
+## Non-Functional Requirements
+1. Responsive UI on desktop and mobile.
+2. Clear validation and error messaging.
+3. Secure authentication and role checks.
+4. Maintainable code structure.
 
-Document Version: 1.0
-Last Updated: 2026-05-14
+## Assumptions
+1. Local development and demo are sufficient.
+2. File storage may be local for the MVP.
+3. No external deployment is required.
+
+## Open Questions
+1. Should future phases include drafts and multi-stage review?
+2. Should blind review be planned now or later?
+3. Should attachments remain single-file only in Phase 1?

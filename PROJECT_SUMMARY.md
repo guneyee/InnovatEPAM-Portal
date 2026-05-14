@@ -20,7 +20,34 @@
 2. Showcase delivery attendance: Pending manual confirmation
 3. Standup call attendance records: Pending manual confirmation
 
----
+
+## Module 08 Lab Completion Checklist
+
+### Required Deliverables
+- [x] InnovatEPAM Portal MVP complete (or significant progress)
+- [x] User authentication working
+- [x] Idea submission working
+- [x] Tests passing
+- [x] PROJECT_SUMMARY.md complete
+- [ ] Demo delivered during showcase (manual)
+
+### Quality Indicators
+- [x] Tests follow Testing Principles from constitution
+- [x] Code aligns with ADRs
+- [x] AI used throughout workflow
+- [x] Regular commits to repository
+- [x] Can articulate transformation from Module 01
+
+### Bonus Achievements
+- [x] Full MVP complete
+- [x] Phases 2-7 progress documented (stories + ADR backlog)
+- [ ] 80%+ test coverage
+- [x] Clean git history with meaningful commits
+
+### Manual Evidence Still Needed
+1. Repository link shared with instructors (confirmation)
+2. Showcase demo attendance confirmation
+3. Standup attendance confirmation
 
 ## Features Completed
 

@@ -4,6 +4,12 @@
 
 **44/44 tests passing | 82% code coverage | All MVP features implemented**
 
+## 🖼️ Visual Demo
+
+- Web demo page: `http://localhost:3000/`
+- Screenshot: [docs/demo-ui.png](docs/demo-ui.png)
+- Demo page source: [src/public/index.html](src/public/index.html)
+
 ---
 
 ## 📊 Key Metrics

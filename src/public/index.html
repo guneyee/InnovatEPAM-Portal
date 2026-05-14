@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InnovatEPAM Portal Demo</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #0f766e;
+      --accent-hover: #115e59;
+      --border: #d1d5db;
+      --ok: #166534;
+      --err: #b91c1c;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(120deg, #f0f9ff 0%, var(--bg) 55%, #ecfeff 100%);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 880px;
+      margin: 32px auto;
+      padding: 0 16px;
+    }
+
+    .header {
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .header p {
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    button {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button:hover { background: var(--accent-hover); }
+
+    .row {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .status {
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--muted);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .status.ok { color: var(--ok); }
+    .status.err { color: var(--err); }
+
+    .pill {
+      display: inline-block;
+      background: #ecfeff;
+      color: #155e75;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      margin-bottom: 10px;
+      border: 1px solid #bae6fd;
+    }
+
+    @media (max-width: 640px) {
+      .row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>InnovatEPAM Portal Demo</h1>
+      <p>Quick visual verification for Health, Register, Login, and Idea Submission.</p>
+    </div>
+
+    <div class="card">
+      <h2>1) Health Check</h2>
+      <button id="healthBtn">Check /health</button>
+      <div id="healthStatus" class="status"></div>
+    </div>
+
+    <div class="card">
+      <h2>2) Register & Login</h2>
+      <span class="pill">Use a fresh email each time if already registered</span>
+      <div class="grid">
+        <input id="email" type="email" placeholder="demo@epam.com" value="showcase2@epam.com" />
+        <input id="password" type="password" placeholder="Password" value="Demo1234" />
+      </div>
+      <div class="row" style="margin-top: 10px;">
+        <button id="registerBtn">Register</button>
+        <button id="loginBtn">Login</button>
+      </div>
+      <div id="authStatus" class="status"></div>
+    </div>
+
+    <div class="card">
+      <h2>3) Submit Idea</h2>
+      <div class="grid">
+        <input id="title" placeholder="Idea title" value="AI-powered onboarding" />
+        <select id="category">
+          <option>Technical</option>
+          <option>Process</option>
+          <option>Business</option>
+        </select>
+      </div>
+      <textarea id="description">Automate employee onboarding using AI assistants</textarea>
+      <button id="submitBtn" style="margin-top: 10px;">Submit Idea</button>
+      <div id="ideaStatus" class="status"></div>
+    </div>
+  </div>
+
+  <script>
+    let token = "";
+
+    const show = (id, text, isError = false) => {
+      const el = document.getElementById(id);
+      el.textContent = text;
+      el.className = `status ${isError ? "err" : "ok"}`;
+    };
+
+    document.getElementById("healthBtn").addEventListener("click", async () => {
+      try {
+        const res = await fetch("/health");
+        const data = await res.json();
+        show("healthStatus", `OK: ${data.status} | ${data.timestamp}`);
+      } catch (err) {
+        show("healthStatus", `Health check failed: ${err.message}`, true);
+      }
+    });
+
+    document.getElementById("registerBtn").addEventListener("click", async () => {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      try {
+        const res = await fetch("/api/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          show("authStatus", `Register error: ${data.error || "Unknown error"}`, true);
+          return;
+        }
+        show("authStatus", `Register success: ${data.user.email}`);
+      } catch (err) {
+        show("authStatus", `Register failed: ${err.message}`, true);
+      }
+    });
+
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      try {
+        const res = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          show("authStatus", `Login error: ${data.error || "Unknown error"}`, true);
+          return;
+        }
+        token = data.token || "";
+        show("authStatus", `Login success: token ready for submit`);
+      } catch (err) {
+        show("authStatus", `Login failed: ${err.message}`, true);
+      }
+    });
+
+    document.getElementById("submitBtn").addEventListener("click", async () => {
+      if (!token) {
+        show("ideaStatus", "Please login first to get a token", true);
+        return;
+      }
+
+      const payload = {
+        title: document.getElementById("title").value.trim(),
+        description: document.getElementById("description").value.trim(),
+        category: document.getElementById("category").value
+      };
+
+      try {
+        const res = await fetch("/api/ideas", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          show("ideaStatus", `Submit error: ${data.error || "Unknown error"}`, true);
+          return;
+        }
+        show("ideaStatus", `Idea submitted: ${data.idea.id} (${data.idea.status})`);
+      } catch (err) {
+        show("ideaStatus", `Submit failed: ${err.message}`, true);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -229,7 +229,7 @@ router.put('/:id/status', authenticateToken, authorizeRole('admin', 'evaluator')
 router.get('/:id/file', authenticateToken, async (req, res) => {
   try {
     const idea = await Idea.findById(req.params.id);
-    if (!idea || !idea.fileAttachment) {
+    if (!idea || !idea.fileAttachment || !idea.fileAttachment.filename) {
       return res.status(404).json({ error: 'File not found' });
     }
 

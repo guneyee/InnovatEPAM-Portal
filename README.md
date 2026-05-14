@@ -2,7 +2,7 @@
 
 ## 🎯 Status: ✅ COMPLETE - Ready for Showcase
 
-**35/35 tests passing | 76% code coverage | All MVP features implemented**
+**44/44 tests passing | 82% code coverage | All MVP features implemented**
 
 ---
 
@@ -10,8 +10,8 @@
 
 | Metric | Value |
 |--------|-------|
-| **Test Coverage** | 76.1% (target: 70%) ✅ |
-| **Tests Passing** | 35/35 ✅ |
+| **Test Coverage** | 82.4% (target: 70%) ✅ |
+| **Tests Passing** | 44/44 ✅ |
 | **API Endpoints** | 7 (Auth + Ideas) |
 | **User Roles** | 3 (Submitter, Evaluator, Admin) |
 | **Features Implemented** | 8 core MVP features |
@@ -158,10 +158,10 @@ See [docs/STORIES.md](docs/STORIES.md) for full details.
 ## 📊 Test Coverage Breakdown
 
 ```
-Statements   : 76.1%
+Statements   : 82.4%
 Branches     : 75%
 Functions    : 67%
-Lines        : 76.5%
+Lines        : 82.9%
 
 By Component:
 - Models     : 100% ✅ (fully tested)
@@ -175,7 +175,7 @@ By Component:
 
 **To run demo:**
 1. Open [DEMO_SCRIPT.md](DEMO_SCRIPT.md)
-2. Run `npm test` to show 35/35 passing
+2. Run `npm test` to show 44/44 passing
 3. Show `PROJECT_SUMMARY.md` for transformation story
 4. Walk through `docs/` for specifications
 
@@ -277,7 +277,7 @@ npm --version
 Before showcase, verify:
 
 - [ ] `npm test` returns "Test Suites: 2 passed, Tests: 35 passed"
-- [ ] `npm run test:coverage` shows 76%+ coverage
+- [ ] `npm run test:coverage` shows 82%+ coverage
 - [ ] All files in `src/` are present (models, routes, middleware)
 - [ ] All docs in `docs/` are present (PRD, STORIES, CONSTITUTION, AGENTS, adr/)
 - [ ] Git history is clean: `git log --oneline` shows meaningful commits

@@ -495,7 +495,9 @@
       <div class="nav-links">
         <a class="nav-link" href="/user">Open User Page</a>
         <a class="nav-link" href="/admin">Open Admin Page</a>
+        <a class="nav-link" href="/app">Open React App (Vite)</a>
       </div>
+      <div id="reactMiniRoot" style="margin-top: 14px;"></div>
     </section>
 
     <main class="main">
@@ -1195,5 +1197,8 @@
     updateTokenState();
     renderIdeas();
   </script>
+  <script crossorigin src="https://unpkg.com/react@19/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@19/umd/react-dom.development.js"></script>
+  <script src="/react-mini.js"></script>
 </body>
 </html>

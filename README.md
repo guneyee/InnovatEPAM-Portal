@@ -31,7 +31,17 @@ Useful pages:
 1. Home: http://localhost:3000/
 2. User Portal: http://localhost:3000/user
 3. Admin Portal: http://localhost:3000/admin
-4. Health: http://localhost:3000/health
+4. React App (built): http://localhost:3000/app
+5. Health: http://localhost:3000/health
+
+React + Vite frontend:
+```bash
+# Start backend + Vite dev server together
+npm run dev:full
+
+# Build React app for Express /app route
+npm run client:build
+```
 
 ## Screenshots
 

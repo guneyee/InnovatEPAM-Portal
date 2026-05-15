@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 const publicDir = path.join(__dirname, 'public');
+const reactDistDir = path.join(__dirname, '..', 'frontend', 'dist');
 
 // Create uploads directory if it doesn't exist
 const fs = require('fs');
@@ -52,6 +53,30 @@ app.get('/user', (req, res) => {
 
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(publicDir, 'admin.html'));
+});
+
+// Serve Vite React app build output when available.
+app.use('/app/assets', express.static(path.join(reactDistDir, 'assets')));
+app.get('/app', (req, res) => {
+  const reactIndex = path.join(reactDistDir, 'index.html');
+  if (fs.existsSync(reactIndex)) {
+    return res.sendFile(reactIndex);
+  }
+
+  return res.status(503).json({
+    error: 'React app is not built yet. Run "npm run client:build" first.'
+  });
+});
+
+app.get('/app/*', (req, res) => {
+  const reactIndex = path.join(reactDistDir, 'index.html');
+  if (fs.existsSync(reactIndex)) {
+    return res.sendFile(reactIndex);
+  }
+
+  return res.status(503).json({
+    error: 'React app is not built yet. Run "npm run client:build" first.'
+  });
 });
 
 // Health check

@@ -3,19 +3,60 @@ const mongoose = require('mongoose');
 const ideaSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
     minlength: 1,
     maxlength: 100
   },
   description: {
     type: String,
-    required: true,
     minlength: 10,
     maxlength: 2000
   },
   category: {
+    type: String
+  },
+  categoryDetails: {
+    type: mongoose.Schema.Types.Mixed,
+    default: {}
+  },
+  reviewStages: [
+    {
+      name: String,
+      enabled: { type: Boolean, default: true },
+      blind: { type: Boolean, default: false },
+      status: { type: String, enum: ['pending', 'approved', 'rejected', 'skipped'], default: 'pending' },
+      score: Number,
+      decidedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+      decidedAt: Date,
+      comment: String
+    }
+  ],
+  currentStage: {
     type: String,
-    required: true
+    default: null
+  },
+  stageHistory: [
+    {
+      stageName: String,
+      decision: String,
+      comment: String,
+      evaluatorId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+      timestamp: { type: Date, default: Date.now }
+    }
+  ],
+  scoreHistory: [
+    {
+      stageName: String,
+      score: Number,
+      evaluatorId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+      comment: String,
+      timestamp: { type: Date, default: Date.now }
+    }
+  ],
+  scoreSummary: {
+    totalScore: { type: Number, default: 0 },
+    scoredStages: { type: Number, default: 0 },
+    averageScore: { type: Number, default: 0 },
+    stageScores: { type: mongoose.Schema.Types.Mixed, default: {} }
   },
   submitterId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -28,7 +69,7 @@ const ideaSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['submitted', 'under_review', 'accepted', 'rejected'],
+    enum: ['draft', 'submitted', 'under_review', 'accepted', 'rejected'],
     default: 'submitted'
   },
   fileAttachment: {

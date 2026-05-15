@@ -3,170 +3,645 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>InnovatEPAM Portal Demo</title>
+  <title>InnovatEPAM Portal</title>
   <style>
+    @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap");
+
     :root {
-      --bg: #f4f7fb;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --accent: #0f766e;
-      --accent-hover: #115e59;
-      --border: #d1d5db;
-      --ok: #166534;
-      --err: #b91c1c;
+      --bg: #f6f4ee;
+      --ink: #1d2a2d;
+      --muted: #5b6a6e;
+      --card: #fffef8;
+      --line: #d9d5c7;
+      --teal: #0e6b6f;
+      --teal-strong: #094f52;
+      --sun: #eebf65;
+      --ok-bg: #e8f7e8;
+      --ok-text: #1f6d36;
+      --err-bg: #fbe5e5;
+      --err-text: #9f2f2f;
+      --glow: 0 16px 42px rgba(19, 46, 51, 0.12);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(120deg, #f0f9ff 0%, var(--bg) 55%, #ecfeff 100%);
-      color: var(--text);
+      min-height: 100vh;
+      font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 16%, rgba(238, 191, 101, 0.35), transparent 34%),
+        radial-gradient(circle at 84% 22%, rgba(14, 107, 111, 0.2), transparent 36%),
+        linear-gradient(130deg, #f6f4ee 0%, #f3f6ef 50%, #f4f1e7 100%);
+      overflow-x: hidden;
     }
 
-    .container {
-      max-width: 880px;
-      margin: 32px auto;
-      padding: 0 16px;
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(to right, rgba(14, 107, 111, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(14, 107, 111, 0.05) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(circle at center, black 56%, transparent 100%);
     }
 
-    .header {
-      margin-bottom: 20px;
+    .shell {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 26px 18px 40px;
+      position: relative;
+      z-index: 1;
     }
 
-    .header h1 {
+    .hero {
+      background: linear-gradient(160deg, #fffef8 0%, #f7f8f2 100%);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--glow);
+      position: relative;
+      overflow: hidden;
+      animation: fade-up 0.7s ease both;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(238, 191, 101, 0.35) 0%, rgba(238, 191, 101, 0) 70%);
+      right: -50px;
+      top: -50px;
+    }
+
+    .hero-title {
       margin: 0;
-      font-size: 28px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.8rem, 1.2rem + 1.6vw, 2.7rem);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      max-width: 18ch;
     }
 
-    .header p {
-      margin: 8px 0 0;
+    .hero-copy {
+      margin: 10px 0 0;
+      max-width: 62ch;
       color: var(--muted);
+      line-height: 1.58;
+    }
+
+    .hero-badges {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .nav-links {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--teal-strong);
+      font-weight: 600;
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+
+    .nav-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(14, 107, 111, 0.16);
+    }
+
+    .badge {
+      border: 1px solid rgba(14, 107, 111, 0.25);
+      background: rgba(14, 107, 111, 0.08);
+      color: #0e5c60;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+
+    .main {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 16px;
+      margin-top: 16px;
     }
 
     .card {
       background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 14px;
-      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 10px 24px rgba(16, 41, 45, 0.06);
+      animation: fade-up 0.65s ease both;
     }
 
-    .card h2 {
-      margin-top: 0;
-      font-size: 18px;
+    .flow {
+      display: grid;
+      gap: 14px;
+    }
+
+    .card:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .card:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .card:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-family: "Space Grotesk", sans-serif;
+      letter-spacing: -0.01em;
+    }
+
+    .step {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid rgba(14, 107, 111, 0.35);
+      background: rgba(14, 107, 111, 0.1);
+      color: var(--teal-strong);
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
     }
 
     .grid {
       display: grid;
       gap: 10px;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      margin-top: 12px;
     }
 
-    input, select, textarea, button {
+    input,
+    select,
+    textarea,
+    button {
       width: 100%;
-      padding: 10px 12px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
+      padding: 11px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
       font: inherit;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: 2px solid rgba(14, 107, 111, 0.25);
+      outline-offset: 1px;
+      border-color: rgba(14, 107, 111, 0.35);
     }
 
     textarea {
-      min-height: 90px;
+      margin-top: 10px;
+      min-height: 92px;
       resize: vertical;
     }
 
     button {
-      background: var(--accent);
-      color: #fff;
       border: none;
+      background: linear-gradient(135deg, var(--teal) 0%, #167b75 100%);
+      color: #fff;
       cursor: pointer;
       font-weight: 600;
+      transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+      box-shadow: 0 8px 16px rgba(14, 107, 111, 0.2);
     }
 
-    button:hover { background: var(--accent-hover); }
+    button:hover {
+      background: linear-gradient(135deg, var(--teal-strong) 0%, #0e6661 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 20px rgba(14, 107, 111, 0.24);
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: 0.68;
+      transform: none;
+      box-shadow: none;
+    }
 
     .row {
       display: grid;
       gap: 10px;
       grid-template-columns: 1fr 1fr;
+      margin-top: 10px;
     }
 
     .status {
       margin-top: 12px;
-      font-size: 14px;
-      color: var(--muted);
+      font-size: 0.9rem;
+      border-radius: 10px;
+      padding: 10px 11px;
+      border: 1px solid var(--line);
+      background: #f8f8f4;
       white-space: pre-wrap;
       word-break: break-word;
     }
 
-    .status.ok { color: var(--ok); }
-    .status.err { color: var(--err); }
-
-    .pill {
-      display: inline-block;
-      background: #ecfeff;
-      color: #155e75;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      margin-bottom: 10px;
-      border: 1px solid #bae6fd;
+    .status.ok {
+      background: var(--ok-bg);
+      border-color: rgba(31, 109, 54, 0.28);
+      color: var(--ok-text);
     }
 
-    @media (max-width: 640px) {
-      .row { grid-template-columns: 1fr; }
+    .status.err {
+      background: var(--err-bg);
+      border-color: rgba(159, 47, 47, 0.28);
+      color: var(--err-text);
+    }
+
+    .hint {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(238, 191, 101, 0.22);
+      color: #7a5500;
+      padding: 6px 11px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      border: 1px solid rgba(205, 141, 14, 0.25);
+    }
+
+    .panel {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .token-card {
+      min-height: 186px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .token-state {
+      margin-top: 10px;
+      border-radius: 12px;
+      border: 1px dashed var(--line);
+      background: #fbfbf7;
+      padding: 12px;
+      line-height: 1.5;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .token-state strong {
+      color: var(--ink);
+    }
+
+    .token-state.active {
+      border-color: rgba(14, 107, 111, 0.35);
+      background: rgba(14, 107, 111, 0.08);
+      color: #145a5d;
+    }
+
+    .token-preview {
+      margin-top: 8px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 0.78rem;
+      color: #24484b;
+      word-break: break-word;
+    }
+
+    .list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 9px;
+      margin-top: 12px;
+    }
+
+    .list li {
+      border: 1px solid var(--line);
+      background: #fafaf5;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 0.92rem;
+      color: #35484b;
+    }
+
+    .ideas-list {
+      margin-top: 12px;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+
+    .ideas-list li {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .ideas-list strong {
+      color: var(--ink);
+      font-size: 0.92rem;
+    }
+
+    .muted-small {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .detail {
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #f7fbf8;
+      padding: 10px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .detail-title {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .detail-text {
+      margin: 0;
+      font-size: 0.88rem;
+      color: #465d60;
+      line-height: 1.45;
+    }
+
+    .preview-img {
+      width: 100%;
+      max-height: 220px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .file-link {
+      display: inline-flex;
+      width: fit-content;
+      text-decoration: none;
+      color: #0f5f5b;
+      background: #ecf8f5;
+      border: 1px solid rgba(14, 107, 111, 0.24);
+      border-radius: 8px;
+      padding: 6px 9px;
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .sun-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      margin-right: 8px;
+      background: radial-gradient(circle at 30% 30%, #ffe4a6 0%, var(--sun) 100%);
+      box-shadow: 0 4px 10px rgba(200, 129, 7, 0.24);
+    }
+
+    @keyframes fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .hero {
+        padding: 20px;
+        border-radius: 20px;
+      }
+
+      .shell {
+        padding: 16px 12px 26px;
+      }
+
+      .row {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 15px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>InnovatEPAM Portal Demo</h1>
-      <p>Quick visual verification for Health, Register, Login, and Idea Submission.</p>
-    </div>
-
-    <div class="card">
-      <h2>1) Health Check</h2>
-      <button id="healthBtn">Check /health</button>
-      <div id="healthStatus" class="status"></div>
-    </div>
-
-    <div class="card">
-      <h2>2) Register & Login</h2>
-      <span class="pill">Use a fresh email each time if already registered</span>
-      <div class="grid">
-        <input id="email" type="email" placeholder="demo@epam.com" value="showcase2@epam.com" />
-        <input id="password" type="password" placeholder="Password" value="Demo1234" />
+  <div class="shell">
+    <section class="hero">
+      <h1 class="hero-title"><span class="sun-mark" aria-hidden="true"></span>InnovatEPAM Portal</h1>
+      <p class="hero-copy">
+        A single workspace to validate service health, authenticate users, and submit innovation ideas.
+        This page keeps your demo flow focused and readable from start to finish.
+      </p>
+      <div class="hero-badges">
+        <span class="badge">Express + MongoDB</span>
+        <span class="badge">JWT Authentication</span>
+        <span class="badge">Idea Submission Workflow</span>
       </div>
-      <div class="row" style="margin-top: 10px;">
-        <button id="registerBtn">Register</button>
-        <button id="loginBtn">Login</button>
+      <div class="nav-links">
+        <a class="nav-link" href="/user">Open User Page</a>
+        <a class="nav-link" href="/admin">Open Admin Page</a>
       </div>
-      <div id="authStatus" class="status"></div>
-    </div>
+    </section>
 
-    <div class="card">
-      <h2>3) Submit Idea</h2>
-      <div class="grid">
-        <input id="title" placeholder="Idea title" value="AI-powered onboarding" />
-        <select id="category">
-          <option>Technical</option>
-          <option>Process</option>
-          <option>Business</option>
-        </select>
-      </div>
-      <textarea id="description">Automate employee onboarding using AI assistants</textarea>
-      <button id="submitBtn" style="margin-top: 10px;">Submit Idea</button>
-      <div id="ideaStatus" class="status"></div>
-    </div>
+    <main class="main">
+      <section class="flow">
+        <article class="card">
+          <div class="card-head">
+            <h2>Service Health</h2>
+            <span class="step">01</span>
+          </div>
+          <p>Verify that backend routing is alive before auth and submission calls.</p>
+          <button id="healthBtn" type="button" style="margin-top: 12px;">Check /health</button>
+          <div id="healthStatus" class="status">No check run yet.</div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <h2>Register & Login</h2>
+            <span class="step">02</span>
+          </div>
+          <p>Create an account, then login to get a JWT token for secured endpoints.</p>
+          <span class="hint">Tip: Use a fresh email if the account already exists.</span>
+          <p style="margin-top: 8px; font-size: 0.9rem;">Default admin: <strong>admin@epam.com</strong> / <strong>Admin1234!</strong></p>
+
+          <div class="grid">
+            <input id="email" type="email" placeholder="demo@epam.com" value="showcase2@epam.com" />
+            <input id="password" type="password" placeholder="Password" value="Demo1234" />
+          </div>
+          <div class="row">
+            <button id="registerBtn" type="button">Register</button>
+            <button id="loginBtn" type="button">Login</button>
+          </div>
+          <div id="authStatus" class="status">Waiting for authentication action.</div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <h2>Submit Idea</h2>
+            <span class="step">03</span>
+          </div>
+          <p>Send a structured idea payload to the protected ideas endpoint with an optional photo attachment.</p>
+          <div class="grid">
+            <input id="title" placeholder="Idea title" value="AI-powered onboarding" />
+            <select id="category">
+              <option>Technical</option>
+              <option>Process Improvement</option>
+              <option>Client Solution</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div id="categoryFields" class="grid" style="margin-top: 10px;"></div>
+          <textarea id="description">Automate employee onboarding using AI assistants</textarea>
+          <input id="ideaFile" type="file" accept="image/jpeg,image/png" style="margin-top: 10px;" />
+          <button id="submitBtn" type="button" style="margin-top: 10px;">Submit Idea</button>
+          <div id="ideaStatus" class="status">Ready for idea submission.</div>
+        </article>
+      </section>
+
+      <aside class="panel">
+        <article class="card token-card">
+          <div>
+            <h2>Session State</h2>
+            <p style="margin-top: 6px;">Current authentication token and request readiness.</p>
+            <div id="tokenState" class="token-state">
+              <strong>Disconnected</strong>
+              <div class="token-preview">Login required before posting ideas.</div>
+            </div>
+          </div>
+          <p style="margin-top: 12px; font-size: 0.88rem;">
+            This panel updates automatically after each auth action.
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>Demo Flow</h2>
+          <ul class="list">
+            <li>1. Run health check and confirm timestamp.</li>
+            <li>2. Register or login with the same credentials.</li>
+            <li>3. Submit an idea and capture returned ID.</li>
+            <li>4. Use API routes for deeper tests if needed.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <h2>Admin Review</h2>
+            <span class="step">04</span>
+          </div>
+          <p>Load submitted ideas and update their status as admin/evaluator.</p>
+          <button id="loadIdeasBtn" type="button" style="margin-top: 10px;">Load Ideas</button>
+
+          <div class="grid">
+            <select id="adminIdeaSelect">
+              <option value="">Select idea</option>
+            </select>
+            <select id="adminNewStatus">
+              <option value="under_review">under_review</option>
+              <option value="accepted">accepted</option>
+              <option value="rejected">rejected</option>
+            </select>
+          </div>
+          <input id="adminComment" placeholder="Optional admin comment" style="margin-top: 10px;" />
+          <div class="row">
+            <button id="updateStatusBtn" type="button">Update Status</button>
+            <button id="seedMainIdeasBtn" type="button">Create 3 Review Ideas</button>
+          </div>
+
+          <div id="adminStatus" class="status">Login as admin/evaluator to update statuses.</div>
+          <ul id="ideasList" class="list ideas-list"></ul>
+          <div id="ideaDetail" class="detail">
+            <p class="detail-title">Idea details</p>
+            <p class="detail-text">Select an idea to inspect description and attachment.</p>
+          </div>
+        </article>
+      </aside>
+    </main>
   </div>
 
   <script>
     let token = "";
+    let currentUserRole = "";
+    let loadedIdeas = [];
+    let currentPreviewUrl = "";
+
+    const CATEGORY_FIELD_CONFIG = {
+      Technical: [
+        { key: "techStack", label: "Tech stack", placeholder: "Node.js, Express, MongoDB" },
+        { key: "complexity", label: "Complexity", placeholder: "Low / Medium / High" }
+      ],
+      "Process Improvement": [
+        { key: "processArea", label: "Process area", placeholder: "Onboarding, QA, Billing" },
+        { key: "efficiencyGain", label: "Efficiency gain", placeholder: "Expected time or cost reduction" }
+      ],
+      "Client Solution": [
+        { key: "clientSegment", label: "Client segment", placeholder: "Enterprise, SMB, Public sector" },
+        { key: "valueProposition", label: "Value proposition", placeholder: "Core client value" }
+      ],
+      Other: [
+        { key: "expectedOutcome", label: "Expected outcome", placeholder: "Target business outcome" },
+        { key: "whyNow", label: "Why now", placeholder: "Why this idea is urgent" }
+      ]
+    };
 
     const show = (id, text, isError = false) => {
       const el = document.getElementById(id);
@@ -174,20 +649,293 @@
       el.className = `status ${isError ? "err" : "ok"}`;
     };
 
-    document.getElementById("healthBtn").addEventListener("click", async () => {
+    const setBusy = (button, busy, busyLabel) => {
+      if (!button.dataset.label) {
+        button.dataset.label = button.textContent;
+      }
+      button.disabled = busy;
+      button.textContent = busy ? busyLabel : button.dataset.label;
+    };
+
+    const renderCategoryFields = () => {
+      const category = document.getElementById("category").value;
+      const fields = CATEGORY_FIELD_CONFIG[category] || [];
+      const container = document.getElementById("categoryFields");
+
+      container.innerHTML = "";
+      fields.forEach((field) => {
+        const wrapper = document.createElement("label");
+        wrapper.style.display = "grid";
+        wrapper.style.gap = "6px";
+        wrapper.style.fontSize = "0.86rem";
+        wrapper.style.color = "#4a6469";
+        wrapper.innerHTML = `${field.label} *`;
+
+        const input = document.createElement("input");
+        input.id = `category_${field.key}`;
+        input.placeholder = field.placeholder;
+        input.required = true;
+        wrapper.appendChild(input);
+        container.appendChild(wrapper);
+      });
+    };
+
+    const collectCategoryDetails = (category) => {
+      const fields = CATEGORY_FIELD_CONFIG[category] || [];
+      const details = {};
+
+      fields.forEach((field) => {
+        const value = document.getElementById(`category_${field.key}`)?.value || "";
+        details[field.key] = value.trim();
+      });
+
+      return details;
+    };
+
+    const validateCategoryDetails = (category, details) => {
+      const fields = CATEGORY_FIELD_CONFIG[category] || [];
+      const missing = fields.filter((field) => !details[field.key]);
+      if (!missing.length) {
+        return null;
+      }
+      return `Missing required ${category} fields: ${missing.map((item) => item.label).join(", ")}`;
+    };
+
+    const appendCategoryDetailsToFormData = (formData, category, details) => {
+      const fields = CATEGORY_FIELD_CONFIG[category] || [];
+      fields.forEach((field) => {
+        formData.append(field.key, details[field.key] || "");
+      });
+    };
+
+    const updateTokenState = () => {
+      const tokenState = document.getElementById("tokenState");
+
+      if (!token) {
+        tokenState.className = "token-state";
+        tokenState.innerHTML = "<strong>Disconnected</strong><div class=\"token-preview\">Login required before posting ideas.</div>";
+        return;
+      }
+
+      const shortToken = token.length > 44 ? `${token.slice(0, 44)}...` : token;
+      tokenState.className = "token-state active";
+      tokenState.innerHTML = `<strong>Connected (${currentUserRole || "unknown"})</strong><div class=\"token-preview\">${shortToken}</div>`;
+    };
+
+    const renderIdeas = () => {
+      const select = document.getElementById("adminIdeaSelect");
+      const list = document.getElementById("ideasList");
+
+      select.innerHTML = '<option value="">Select idea</option>';
+      list.innerHTML = "";
+
+      if (!loadedIdeas.length) {
+        const empty = document.createElement("li");
+        empty.className = "muted-small";
+        empty.textContent = "No ideas found yet.";
+        list.appendChild(empty);
+        return;
+      }
+
+      loadedIdeas.forEach((idea) => {
+        const option = document.createElement("option");
+        option.value = idea.id;
+        option.textContent = `${idea.title} (${idea.status})`;
+        select.appendChild(option);
+
+        const item = document.createElement("li");
+        item.innerHTML = `<strong>${idea.title}</strong><span class="muted-small">${idea.id} | ${idea.status} | ${idea.category} | ${idea.submitterEmail || "unknown"}</span>`;
+        list.appendChild(item);
+      });
+    };
+
+    const clearPreview = () => {
+      if (currentPreviewUrl) {
+        URL.revokeObjectURL(currentPreviewUrl);
+        currentPreviewUrl = "";
+      }
+    };
+
+    const showIdeaDetail = async (ideaId) => {
+      const detail = document.getElementById("ideaDetail");
+      clearPreview();
+
+      if (!ideaId) {
+        detail.innerHTML = "<p class=\"detail-title\">Idea details</p><p class=\"detail-text\">Select an idea to inspect description and attachment.</p>";
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/ideas/${ideaId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          detail.innerHTML = `<p class=\"detail-title\">Idea details</p><p class=\"detail-text\">Failed to load details: ${data.error || "Unknown error"}</p>`;
+          return;
+        }
+
+        const idea = data.idea;
+        let fileSection = "<p class=\"detail-text\">No attachment.</p>";
+
+        if (idea.fileAttachment && idea.fileAttachment.filename) {
+          const fileRes = await fetch(`/api/ideas/${ideaId}/file`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+
+          if (fileRes.ok) {
+            const blob = await fileRes.blob();
+            currentPreviewUrl = URL.createObjectURL(blob);
+            const fileName = idea.fileAttachment.originalName || "attachment";
+            fileSection = `
+              <img class=\"preview-img\" src=\"${currentPreviewUrl}\" alt=\"Idea attachment\" />
+              <a class=\"file-link\" href=\"${currentPreviewUrl}\" download=\"${fileName}\">Download attachment</a>
+            `;
+          } else {
+            fileSection = "<p class=\"detail-text\">Attachment exists but could not be loaded.</p>";
+          }
+        }
+
+        detail.innerHTML = `
+          <p class=\"detail-title\">${idea.title}</p>
+          <p class=\"detail-text\">${idea.description}</p>
+          <p class=\"detail-text\">Category: ${idea.category} | Status: ${idea.status}</p>
+          <p class=\"detail-text\">Submitted by: ${idea.submitterEmail || "unknown"}</p>
+          ${fileSection}
+        `;
+      } catch (err) {
+        detail.innerHTML = `<p class=\"detail-title\">Idea details</p><p class=\"detail-text\">Failed to load details: ${err.message}</p>`;
+      }
+    };
+
+    const loadIdeas = async (silent = false) => {
+      if (!token) {
+        show("adminStatus", "Please login first to load ideas.", true);
+        return;
+      }
+
+      const button = document.getElementById("loadIdeasBtn");
+      setBusy(button, true, "Loading...");
+      try {
+        const res = await fetch("/api/ideas", {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          show("adminStatus", `Load ideas error: ${data.error || "Unknown error"}`, true);
+          return;
+        }
+
+        loadedIdeas = (data.ideas || []).map((idea) => ({
+          id: idea._id || idea.id,
+          title: idea.title,
+          status: idea.status,
+          category: idea.category || "n/a",
+          submitterEmail: idea.submitterEmail || ""
+        }));
+
+        renderIdeas();
+        const selectedId = document.getElementById("adminIdeaSelect").value;
+        if (selectedId) {
+          await showIdeaDetail(selectedId);
+        }
+        if (!silent) {
+          show("adminStatus", `Loaded ${loadedIdeas.length} ideas.`);
+        }
+      } catch (err) {
+        show("adminStatus", `Load ideas failed: ${err.message}`, true);
+      } finally {
+        setBusy(button, false, "Loading...");
+      }
+    };
+
+    const updateIdeaStatus = async (ideaId, newStatus, comment = "") => {
+      const res = await fetch(`/api/ideas/${ideaId}/status`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({ newStatus, comment })
+      });
+      return res;
+    };
+
+    const createDemoImageFile = async (label, accentColor) => {
+      const canvas = document.createElement("canvas");
+      canvas.width = 720;
+      canvas.height = 420;
+      const ctx = canvas.getContext("2d");
+
+      ctx.fillStyle = "#f6fbf8";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = accentColor;
+      ctx.fillRect(0, 0, canvas.width, 120);
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 34px sans-serif";
+      ctx.fillText("InnovatEPAM Idea", 28, 74);
+      ctx.fillStyle = "#1d2f34";
+      ctx.font = "600 28px sans-serif";
+      ctx.fillText(label, 28, 196);
+      ctx.font = "20px sans-serif";
+      ctx.fillText("Demo preview image from main portal", 28, 236);
+
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+      return new File([blob], `${label.toLowerCase().replace(/\s+/g, "-")}.png`, { type: "image/png" });
+    };
+
+    const createDemoIdea = async (payload, accentColor = "#0e6b6f") => {
+      const formData = new FormData();
+      formData.append("title", payload.title);
+      formData.append("description", payload.description);
+      formData.append("category", payload.category);
+      appendCategoryDetailsToFormData(formData, payload.category, payload.categoryDetails || {});
+      const imageFile = await createDemoImageFile(payload.title, accentColor);
+      formData.append("file", imageFile);
+
+      const res = await fetch("/api/ideas", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        },
+        body: formData
+      });
+      return res;
+    };
+
+    document.getElementById("healthBtn").addEventListener("click", async (event) => {
+      const button = event.currentTarget;
+      setBusy(button, true, "Checking...");
+
       try {
         const res = await fetch("/health");
         const data = await res.json();
+        if (!res.ok) {
+          show("healthStatus", `Health check error: ${data.error || "Unknown error"}`, true);
+          return;
+        }
         show("healthStatus", `OK: ${data.status} | ${data.timestamp}`);
       } catch (err) {
         show("healthStatus", `Health check failed: ${err.message}`, true);
+      } finally {
+        setBusy(button, false, "Checking...");
       }
     });
 
-    document.getElementById("registerBtn").addEventListener("click", async () => {
+    document.getElementById("registerBtn").addEventListener("click", async (event) => {
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
+      const button = event.currentTarget;
 
+      if (!email || !password) {
+        show("authStatus", "Email and password are required for registration.", true);
+        return;
+      }
+
+      setBusy(button, true, "Registering...");
       try {
         const res = await fetch("/api/auth/register", {
           method: "POST",
@@ -202,13 +950,22 @@
         show("authStatus", `Register success: ${data.user.email}`);
       } catch (err) {
         show("authStatus", `Register failed: ${err.message}`, true);
+      } finally {
+        setBusy(button, false, "Registering...");
       }
     });
 
-    document.getElementById("loginBtn").addEventListener("click", async () => {
+    document.getElementById("loginBtn").addEventListener("click", async (event) => {
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
+      const button = event.currentTarget;
 
+      if (!email || !password) {
+        show("authStatus", "Email and password are required for login.", true);
+        return;
+      }
+
+      setBusy(button, true, "Logging in...");
       try {
         const res = await fetch("/api/auth/login", {
           method: "POST",
@@ -218,18 +975,30 @@
         const data = await res.json();
         if (!res.ok) {
           show("authStatus", `Login error: ${data.error || "Unknown error"}`, true);
+          token = "";
+          currentUserRole = "";
+          updateTokenState();
           return;
         }
         token = data.token || "";
-        show("authStatus", `Login success: token ready for submit`);
+        currentUserRole = data.user && data.user.role ? data.user.role : "";
+        show("authStatus", "Login success: token loaded for idea submission.");
+        updateTokenState();
       } catch (err) {
         show("authStatus", `Login failed: ${err.message}`, true);
+        token = "";
+        currentUserRole = "";
+        updateTokenState();
+      } finally {
+        setBusy(button, false, "Logging in...");
       }
     });
 
-    document.getElementById("submitBtn").addEventListener("click", async () => {
+    document.getElementById("submitBtn").addEventListener("click", async (event) => {
+      const button = event.currentTarget;
+
       if (!token) {
-        show("ideaStatus", "Please login first to get a token", true);
+        show("ideaStatus", "Please login first to get a token.", true);
         return;
       }
 
@@ -238,26 +1007,198 @@
         description: document.getElementById("description").value.trim(),
         category: document.getElementById("category").value
       };
+      const categoryDetails = collectCategoryDetails(payload.category);
+      const fileInput = document.getElementById("ideaFile");
+      const selectedFile = fileInput.files && fileInput.files.length ? fileInput.files[0] : null;
 
+      if (!payload.title || !payload.description) {
+        show("ideaStatus", "Title and description are required.", true);
+        return;
+      }
+
+      const categoryError = validateCategoryDetails(payload.category, categoryDetails);
+      if (categoryError) {
+        show("ideaStatus", categoryError, true);
+        return;
+      }
+
+      if (selectedFile && !["image/jpeg", "image/png"].includes(selectedFile.type)) {
+        show("ideaStatus", "Only JPG and PNG photos are allowed.", true);
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("title", payload.title);
+      formData.append("description", payload.description);
+      formData.append("category", payload.category);
+      appendCategoryDetailsToFormData(formData, payload.category, categoryDetails);
+      if (selectedFile) {
+        formData.append("file", selectedFile);
+      }
+
+      setBusy(button, true, "Submitting...");
       try {
         const res = await fetch("/api/ideas", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
           },
-          body: JSON.stringify(payload)
+          body: formData
         });
         const data = await res.json();
         if (!res.ok) {
           show("ideaStatus", `Submit error: ${data.error || "Unknown error"}`, true);
           return;
         }
-        show("ideaStatus", `Idea submitted: ${data.idea.id} (${data.idea.status})`);
+        const photoInfo = selectedFile ? ` | Photo: ${selectedFile.name}` : "";
+        show("ideaStatus", `Idea submitted: ${data.idea.id} (${data.idea.status})${photoInfo}`);
+        fileInput.value = "";
       } catch (err) {
         show("ideaStatus", `Submit failed: ${err.message}`, true);
+      } finally {
+        setBusy(button, false, "Submitting...");
       }
     });
+
+    document.getElementById("loadIdeasBtn").addEventListener("click", async () => {
+      await loadIdeas();
+    });
+
+    document.getElementById("adminIdeaSelect").addEventListener("change", async (event) => {
+      await showIdeaDetail(event.target.value);
+    });
+
+    document.getElementById("updateStatusBtn").addEventListener("click", async (event) => {
+      if (!token) {
+        show("adminStatus", "Please login first to update idea status.", true);
+        return;
+      }
+
+      const ideaId = document.getElementById("adminIdeaSelect").value;
+      const newStatus = document.getElementById("adminNewStatus").value;
+      const comment = document.getElementById("adminComment").value.trim();
+
+      if (!ideaId) {
+        show("adminStatus", "Select an idea first.", true);
+        return;
+      }
+
+      const button = event.currentTarget;
+      setBusy(button, true, "Updating...");
+      try {
+        const selectedIdea = loadedIdeas.find((item) => item.id === ideaId);
+        if (
+          selectedIdea &&
+          selectedIdea.status === "submitted" &&
+          (newStatus === "accepted" || newStatus === "rejected")
+        ) {
+          const bridgeRes = await updateIdeaStatus(ideaId, "under_review", "Auto transition before final decision");
+          const bridgeData = await bridgeRes.json();
+          if (!bridgeRes.ok) {
+            show("adminStatus", `Status update error: ${bridgeData.error || "Unknown error"}`, true);
+            return;
+          }
+        }
+
+        const res = await updateIdeaStatus(ideaId, newStatus, comment);
+        const data = await res.json();
+        if (!res.ok) {
+          show("adminStatus", `Status update error: ${data.error || "Unknown error"}`, true);
+          return;
+        }
+
+        await loadIdeas(true);
+        show("adminStatus", `Updated: ${data.idea.id} -> ${data.idea.status}`);
+      } catch (err) {
+        show("adminStatus", `Status update failed: ${err.message}`, true);
+      } finally {
+        setBusy(button, false, "Updating...");
+      }
+    });
+
+    document.getElementById("seedMainIdeasBtn").addEventListener("click", async (event) => {
+      if (!token) {
+        show("adminStatus", "Please login first to create demo ideas.", true);
+        return;
+      }
+
+      const button = event.currentTarget;
+      setBusy(button, true, "Creating...");
+      try {
+        const suffix = Date.now().toString().slice(-5);
+        const templates = [
+          {
+            title: `Main AI Screening ${suffix}`,
+            description: "Screen incoming requests with AI-assisted triage to reduce response time.",
+            category: "Technical",
+            categoryDetails: {
+              techStack: "Node.js + ML service",
+              complexity: "Medium"
+            }
+          },
+          {
+            title: `Main Smart Workflow ${suffix}`,
+            description: "Simplify approval steps using event-driven automation and shared checklists.",
+            category: "Process Improvement",
+            categoryDetails: {
+              processArea: "Internal approvals",
+              efficiencyGain: "Cut review cycle by 25%"
+            }
+          },
+          {
+            title: `Main Growth Accelerator ${suffix}`,
+            description: "Launch a quarterly growth sprint to validate new client value propositions.",
+            category: "Client Solution",
+            categoryDetails: {
+              clientSegment: "Strategic clients",
+              valueProposition: "Faster experimentation with measurable ROI"
+            }
+          }
+        ];
+        const colors = ["#1d6f8a", "#0e6b6f", "#3f6aa0"];
+        const created = [];
+
+        for (let i = 0; i < templates.length; i += 1) {
+          const createRes = await createDemoIdea(templates[i], colors[i % colors.length]);
+          const createData = await createRes.json();
+          if (!createRes.ok) {
+            show("adminStatus", `Create idea error: ${createData.error || "Unknown error"}`, true);
+            return;
+          }
+
+          const ideaId = createData.idea.id;
+          created.push(ideaId);
+
+          // Try to prepare for accept/reject; if unauthorized, keep as submitted.
+          const reviewRes = await updateIdeaStatus(ideaId, "under_review", "Prepared for review from main page");
+          if (!reviewRes.ok) {
+            const reviewData = await reviewRes.json();
+            if (!(reviewRes.status === 403 || reviewRes.status === 401)) {
+              show("adminStatus", `Prepare idea error: ${reviewData.error || "Unknown error"}`, true);
+              return;
+            }
+          }
+        }
+
+        await loadIdeas(true);
+        const firstCreated = created[0];
+        document.getElementById("adminIdeaSelect").value = firstCreated;
+        await showIdeaDetail(firstCreated);
+        show("adminStatus", `Created ${created.length} demo ideas. If role is admin/evaluator, they were moved to under_review.`);
+      } catch (err) {
+        show("adminStatus", `Create demo ideas failed: ${err.message}`, true);
+      } finally {
+        setBusy(button, false, "Creating...");
+      }
+    });
+
+    renderCategoryFields();
+    document.getElementById("category").addEventListener("change", () => {
+      renderCategoryFields();
+    });
+
+    updateTokenState();
+    renderIdeas();
   </script>
 </body>
 </html>

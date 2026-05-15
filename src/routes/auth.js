@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const { findUserByEmail, createUser, isDatabaseReady } = require('../services/storage');
 
 // POST /api/auth/register
 router.post('/register', async (req, res) => {
@@ -24,7 +24,7 @@ router.post('/register', async (req, res) => {
     }
 
     // Check if user exists
-    const existing = await User.findOne({ email: email.toLowerCase() });
+    const existing = await findUserByEmail(email);
     if (existing) {
       return res.status(400).json({ error: 'Email already registered' });
     }
@@ -33,16 +33,15 @@ router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create user
-    const user = new User({
-      email: email.toLowerCase(),
+    const user = await createUser({
+      email,
       password: hashedPassword,
       role: 'submitter'
     });
 
-    await user.save();
-
     res.status(201).json({
       message: 'User registered successfully',
+      mode: isDatabaseReady() ? 'database' : 'in-memory',
       user: {
         id: user._id,
         email: user.email,
@@ -64,7 +63,7 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ error: 'Email and password required' });
     }
 
-    const user = await User.findOne({ email: email.toLowerCase() });
+    const user = await findUserByEmail(email);
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }

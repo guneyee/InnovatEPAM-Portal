@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
+const { ensureDefaultAdmin, DEFAULT_ADMIN_EMAIL } = require('./services/storage');
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+const publicDir = path.join(__dirname, 'public');
 
 // Create uploads directory if it doesn't exist
 const fs = require('fs');
@@ -26,17 +28,39 @@ if (process.env.NODE_ENV !== 'test') {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(() => console.log('✓ MongoDB connected'))
+  .then(async () => {
+    await ensureDefaultAdmin();
+    console.log('✓ MongoDB connected');
+    console.log(`✓ Default admin ready: ${DEFAULT_ADMIN_EMAIL}`);
+  })
   .catch(err => console.error('✗ MongoDB connection error:', err.message));
+
+  // Ensure demo login is available even when MongoDB is offline.
+  ensureDefaultAdmin()
+    .then(() => console.log(`✓ Fallback admin ready: ${DEFAULT_ADMIN_EMAIL}`))
+    .catch(err => console.error('✗ Failed to prepare fallback admin:', err.message));
 }
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/ideas', require('./routes/ideas'));
 
+// Dedicated role-based pages
+app.get('/user', (req, res) => {
+  res.sendFile(path.join(publicDir, 'user.html'));
+});
+
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(publicDir, 'admin.html'));
+});
+
 // Health check
 app.get('/health', (req, res) => {
-  res.json({ status: 'OK', timestamp: new Date().toISOString() });
+  res.json({
+    status: 'OK',
+    timestamp: new Date().toISOString(),
+    defaultAdminEmail: DEFAULT_ADMIN_EMAIL
+  });
 });
 
 // Error handling middleware

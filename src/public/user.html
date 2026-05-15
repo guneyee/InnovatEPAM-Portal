@@ -1,0 +1,1058 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InnovatEPAM User Portal</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap");
+
+    :root {
+      --bg: #eef5f1;
+      --ink: #13272b;
+      --muted: #567076;
+      --card: #fbfdf9;
+      --line: #c8dbd3;
+      --brand: #0d746f;
+      --brand-strong: #0a5956;
+      --highlight: #f4b942;
+      --ok-bg: #e6f8eb;
+      --ok-text: #1f6c37;
+      --err-bg: #fde9e8;
+      --err-text: #9d2f2f;
+      --shadow: 0 16px 30px rgba(13, 47, 50, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: "Public Sans", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 12% 14%, rgba(244, 185, 66, 0.22), transparent 36%),
+        radial-gradient(circle at 82% 20%, rgba(13, 116, 111, 0.18), transparent 34%),
+        linear-gradient(135deg, #eef5f1 0%, #e8f2f6 45%, #edf0e7 100%);
+      overflow-x: hidden;
+    }
+
+    .shell {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 22px 14px 34px;
+    }
+
+    .hero {
+      background: linear-gradient(160deg, #fbfdf9 0%, #f5fbf8 100%);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      right: -38px;
+      top: -48px;
+      background: radial-gradient(circle, rgba(244, 185, 66, 0.35) 0%, rgba(244, 185, 66, 0) 72%);
+      pointer-events: none;
+    }
+
+    .title {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.4rem, 1rem + 1.1vw, 2rem);
+      letter-spacing: -0.015em;
+    }
+
+    .subtitle {
+      margin: 7px 0 0;
+      color: var(--muted);
+      line-height: 1.45;
+      max-width: 62ch;
+    }
+
+    .top-row {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: var(--brand-strong);
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 8px 11px;
+      border-radius: 10px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+
+    .nav a:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 14px rgba(12, 74, 69, 0.15);
+    }
+
+    .role-pill {
+      border: 1px solid rgba(13, 116, 111, 0.28);
+      background: rgba(13, 116, 111, 0.09);
+      color: #0f5f5b;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .grid {
+      margin-top: 14px;
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 8px 18px rgba(13, 47, 50, 0.08);
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 1.08rem;
+      font-family: "Space Grotesk", sans-serif;
+    }
+
+    .card p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .form-grid {
+      margin-top: 10px;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      font: inherit;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      padding: 10px 11px;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid rgba(13, 116, 111, 0.25);
+      outline-offset: 1px;
+      border-color: rgba(13, 116, 111, 0.35);
+    }
+
+    textarea {
+      min-height: 94px;
+      resize: vertical;
+      margin-top: 10px;
+    }
+
+    .row {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, var(--brand) 0%, #1b8a80 100%);
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+      box-shadow: 0 8px 14px rgba(13, 116, 111, 0.22);
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 18px rgba(13, 116, 111, 0.25);
+      background: linear-gradient(135deg, var(--brand-strong) 0%, #0f746d 100%);
+    }
+
+    button:disabled {
+      opacity: 0.7;
+      cursor: wait;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .status {
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      background: #f6fbf8;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .status.ok {
+      background: var(--ok-bg);
+      border-color: rgba(31, 108, 55, 0.28);
+      color: var(--ok-text);
+    }
+
+    .status.err {
+      background: var(--err-bg);
+      border-color: rgba(157, 47, 47, 0.28);
+      color: var(--err-text);
+    }
+
+    .footnote {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .action-row {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+    }
+
+    .ideas {
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      max-height: 270px;
+      overflow-y: auto;
+    }
+
+    .ideas li {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #f4faf8;
+      padding: 9px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .ideas strong {
+      font-size: 0.92rem;
+    }
+
+    .small {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .detail {
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #f6fbf8;
+      padding: 10px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .detail-title {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .detail-text {
+      margin: 0;
+      font-size: 0.88rem;
+      color: #445f64;
+      line-height: 1.45;
+    }
+
+    .preview-img {
+      width: 100%;
+      max-height: 220px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .file-link {
+      display: inline-flex;
+      width: fit-content;
+      text-decoration: none;
+      color: #0f5f5b;
+      background: #ebf7f4;
+      border: 1px solid rgba(13, 116, 111, 0.24);
+      border-radius: 8px;
+      padding: 6px 9px;
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .wide {
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      .row { grid-template-columns: 1fr; }
+      .action-row { grid-template-columns: 1fr; }
+      .shell { padding: 14px 10px 24px; }
+      .hero { border-radius: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="hero">
+      <h1 class="title">User Portal</h1>
+      <p class="subtitle">Submitter flow for registration, login, and idea sharing with optional photo upload.</p>
+      <div class="top-row">
+        <div class="nav">
+          <a href="/">Home</a>
+          <a href="/admin">Switch to Admin Portal</a>
+        </div>
+        <div id="rolePill" class="role-pill">Not logged in</div>
+      </div>
+    </section>
+
+    <main class="grid">
+      <article class="card">
+        <h2>User Login</h2>
+        <p>Create a user account or sign in using existing credentials.</p>
+        <div class="form-grid">
+          <input id="email" type="email" placeholder="user@epam.com" value="showcase2@epam.com" />
+          <input id="password" type="password" placeholder="Password" value="Demo1234" />
+        </div>
+        <div class="row">
+          <button id="registerBtn" type="button">Register</button>
+          <button id="loginBtn" type="button">Login</button>
+        </div>
+        <div id="authStatus" class="status">Ready for authentication.</div>
+      </article>
+
+      <article class="card">
+        <h2>Submit Idea</h2>
+        <p>Fill idea details and optionally attach one JPG/PNG image.</p>
+        <div class="form-grid">
+          <input id="title" placeholder="Idea title" value="AI-powered onboarding" />
+          <select id="category">
+            <option>Technical</option>
+            <option>Process Improvement</option>
+            <option>Client Solution</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div id="categoryFields" class="form-grid" style="margin-top: 10px;"></div>
+        <textarea id="description">Automate employee onboarding using AI assistants</textarea>
+        <input id="ideaFile" type="file" accept="image/jpeg,image/png" />
+        <div class="action-row">
+          <button id="saveDraftBtn" type="button">Save Draft</button>
+          <button id="submitBtn" type="button">Submit Idea</button>
+        </div>
+        <div class="action-row">
+          <button id="loadDraftsBtn" type="button">Load Drafts</button>
+          <select id="draftSelect">
+            <option value="">Select draft</option>
+          </select>
+        </div>
+        <div id="ideaStatus" class="status">Login first, then submit your idea.</div>
+        <div class="footnote">For admin-only review actions, use the Admin Portal page.</div>
+      </article>
+
+      <article class="card wide">
+        <h2>Submitted Ideas</h2>
+        <p>Load ideas, inspect full description, and preview attached image.</p>
+        <div class="action-row">
+          <button id="loadIdeasBtn" type="button">Load Ideas</button>
+          <button id="seedIdeasBtn" type="button">Create 3 Sample Ideas</button>
+        </div>
+        <select id="ideaSelect" style="margin-top: 10px;">
+          <option value="">Select idea</option>
+        </select>
+        <div id="listStatus" class="status">No ideas loaded yet.</div>
+        <ul id="ideasList" class="ideas"></ul>
+        <div id="ideaDetail" class="detail">
+          <p class="detail-title">Idea details</p>
+          <p class="detail-text">Select an idea to inspect description and attachment.</p>
+        </div>
+      </article>
+    </main>
+  </div>
+
+  <script>
+    let token = "";
+    let currentRole = "";
+    let loadedIdeas = [];
+    let currentPreviewUrl = "";
+    let currentDraftId = "";
+
+    const CATEGORY_FIELD_CONFIG = {
+      Technical: [
+        { key: "techStack", label: "Tech stack", placeholder: "Node.js, Express, MongoDB" },
+        { key: "complexity", label: "Complexity", placeholder: "Low / Medium / High" }
+      ],
+      "Process Improvement": [
+        { key: "processArea", label: "Process area", placeholder: "Onboarding, QA, Billing" },
+        { key: "efficiencyGain", label: "Efficiency gain", placeholder: "Expected time or cost reduction" }
+      ],
+      "Client Solution": [
+        { key: "clientSegment", label: "Client segment", placeholder: "Enterprise, SMB, Public sector" },
+        { key: "valueProposition", label: "Value proposition", placeholder: "Core client value" }
+      ],
+      Other: [
+        { key: "expectedOutcome", label: "Expected outcome", placeholder: "Target business outcome" },
+        { key: "whyNow", label: "Why now", placeholder: "Why this idea is urgent" }
+      ]
+    };
+
+    const show = (id, text, isError = false) => {
+      const el = document.getElementById(id);
+      el.textContent = text;
+      el.className = `status ${isError ? "err" : "ok"}`;
+    };
+
+    const setBusy = (button, busy, busyLabel) => {
+      if (!button.dataset.label) {
+        button.dataset.label = button.textContent;
+      }
+      button.disabled = busy;
+      button.textContent = busy ? busyLabel : button.dataset.label;
+    };
+
+    const renderCategoryFields = () => {
+      const category = document.getElementById("category").value;
+      const fields = CATEGORY_FIELD_CONFIG[category] || [];
+      const container = document.getElementById("categoryFields");
+
+      container.innerHTML = "";
+      fields.forEach((field) => {
+        const wrapper = document.createElement("label");
+        wrapper.style.display = "grid";
+        wrapper.style.gap = "6px";
+        wrapper.style.fontSize = "0.86rem";
+        wrapper.style.color = "#4a6469";
+        wrapper.innerHTML = `${field.label} *`;
+
+        const input = document.createElement("input");
+        input.id = `category_${field.key}`;
+        input.placeholder = field.placeholder;
+        input.required = true;
+        wrapper.appendChild(input);
+        container.appendChild(wrapper);
+      });
+    };
+
+    const collectCategoryDetails = (category) => {
+      const fields = CATEGORY_FIELD_CONFIG[category] || [];
+      const details = {};
+
+      fields.forEach((field) => {
+        const value = document.getElementById(`category_${field.key}`)?.value || "";
+        details[field.key] = value.trim();
+      });
+
+      return details;
+    };
+
+    const validateCategoryDetails = (category, details) => {
+      const fields = CATEGORY_FIELD_CONFIG[category] || [];
+      const missing = fields.filter((field) => !details[field.key]);
+      if (!missing.length) {
+        return null;
+      }
+      return `Missing required ${category} fields: ${missing.map((item) => item.label).join(", ")}`;
+    };
+
+    const appendCategoryDetailsToFormData = (formData, category, details) => {
+      const fields = CATEGORY_FIELD_CONFIG[category] || [];
+      fields.forEach((field) => {
+        formData.append(field.key, details[field.key] || "");
+      });
+    };
+
+    const fillCategoryFields = (category, details) => {
+      const fields = CATEGORY_FIELD_CONFIG[category] || [];
+      fields.forEach((field) => {
+        const input = document.getElementById(`category_${field.key}`);
+        if (input) {
+          input.value = details[field.key] || "";
+        }
+      });
+    };
+
+    const loadDrafts = async (silent = false) => {
+      if (!token) {
+        show("ideaStatus", "Please login first.", true);
+        return;
+      }
+
+      const button = document.getElementById("loadDraftsBtn");
+      setBusy(button, true, "Loading...");
+      try {
+        const res = await fetch("/api/ideas/drafts", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          show("ideaStatus", `Load drafts error: ${data.error || "Unknown error"}`, true);
+          return;
+        }
+
+        const select = document.getElementById("draftSelect");
+        select.innerHTML = '<option value="">Select draft</option>';
+
+        (data.drafts || []).forEach((draft) => {
+          const option = document.createElement("option");
+          const id = draft._id || draft.id;
+          option.value = id;
+          option.textContent = `${draft.title || "Untitled Draft"} (${draft.status})`;
+          select.appendChild(option);
+        });
+
+        if (!silent) {
+          show("ideaStatus", `Loaded ${data.total || 0} drafts.`);
+        }
+      } catch (err) {
+        show("ideaStatus", `Load drafts failed: ${err.message}`, true);
+      } finally {
+        setBusy(button, false, "Loading...");
+      }
+    };
+
+    const loadDraftIntoForm = async (draftId) => {
+      if (!draftId) {
+        currentDraftId = "";
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/ideas/${draftId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          show("ideaStatus", `Load draft detail error: ${data.error || "Unknown error"}`, true);
+          return;
+        }
+
+        if (data.idea.status !== "draft") {
+          show("ideaStatus", "Selected item is not a draft.", true);
+          return;
+        }
+
+        currentDraftId = data.idea.id;
+        document.getElementById("title").value = data.idea.title || "";
+        document.getElementById("description").value = data.idea.description || "";
+        document.getElementById("category").value = data.idea.category || "Technical";
+        renderCategoryFields();
+        fillCategoryFields(document.getElementById("category").value, data.idea.categoryDetails || {});
+        show("ideaStatus", `Draft loaded: ${data.idea.id}`);
+      } catch (err) {
+        show("ideaStatus", `Load draft failed: ${err.message}`, true);
+      }
+    };
+
+    const refreshRolePill = () => {
+      const el = document.getElementById("rolePill");
+      if (!token) {
+        el.textContent = "Not logged in";
+        return;
+      }
+      el.textContent = `Logged in: ${currentRole || "user"}`;
+    };
+
+    const clearPreview = () => {
+      if (currentPreviewUrl) {
+        URL.revokeObjectURL(currentPreviewUrl);
+        currentPreviewUrl = "";
+      }
+    };
+
+    const renderIdeas = () => {
+      const select = document.getElementById("ideaSelect");
+      const list = document.getElementById("ideasList");
+
+      select.innerHTML = '<option value="">Select idea</option>';
+      list.innerHTML = "";
+
+      if (!loadedIdeas.length) {
+        const empty = document.createElement("li");
+        empty.className = "small";
+        empty.textContent = "No ideas available.";
+        list.appendChild(empty);
+        return;
+      }
+
+      loadedIdeas.forEach((idea) => {
+        const option = document.createElement("option");
+        option.value = idea.id;
+        option.textContent = `${idea.title} (${idea.status})`;
+        select.appendChild(option);
+
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${idea.title}</strong><span class=\"small\">${idea.id} | ${idea.status} | ${idea.category}</span>`;
+        list.appendChild(li);
+      });
+    };
+
+    const showIdeaDetail = async (ideaId) => {
+      const detail = document.getElementById("ideaDetail");
+      clearPreview();
+
+      if (!ideaId) {
+        detail.innerHTML = "<p class=\"detail-title\">Idea details</p><p class=\"detail-text\">Select an idea to inspect description and attachment.</p>";
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/ideas/${ideaId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          detail.innerHTML = `<p class=\"detail-title\">Idea details</p><p class=\"detail-text\">Failed to load details: ${data.error || "Unknown error"}</p>`;
+          return;
+        }
+
+        const idea = data.idea;
+        let fileSection = "<p class=\"detail-text\">No attachment.</p>";
+
+        if (idea.fileAttachment && idea.fileAttachment.filename) {
+          const fileRes = await fetch(`/api/ideas/${ideaId}/file`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+
+          if (fileRes.ok) {
+            const blob = await fileRes.blob();
+            currentPreviewUrl = URL.createObjectURL(blob);
+            const fileName = idea.fileAttachment.originalName || "attachment";
+            fileSection = `
+              <img class=\"preview-img\" src=\"${currentPreviewUrl}\" alt=\"Idea attachment\" />
+              <a class=\"file-link\" href=\"${currentPreviewUrl}\" download=\"${fileName}\">Download attachment</a>
+            `;
+          } else {
+            fileSection = "<p class=\"detail-text\">Attachment exists but could not be loaded.</p>";
+          }
+        }
+
+        detail.innerHTML = `
+          <p class=\"detail-title\">${idea.title}</p>
+          <p class=\"detail-text\">${idea.description}</p>
+          <p class=\"detail-text\">Category: ${idea.category} | Status: ${idea.status}</p>
+          ${fileSection}
+        `;
+      } catch (err) {
+        detail.innerHTML = `<p class=\"detail-title\">Idea details</p><p class=\"detail-text\">Failed to load details: ${err.message}</p>`;
+      }
+    };
+
+    const loadIdeas = async (silent = false) => {
+      if (!token) {
+        show("listStatus", "Please login first.", true);
+        return;
+      }
+
+      const button = document.getElementById("loadIdeasBtn");
+      setBusy(button, true, "Loading...");
+      try {
+        const res = await fetch("/api/ideas", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          show("listStatus", `Load ideas error: ${data.error || "Unknown error"}`, true);
+          return;
+        }
+
+        loadedIdeas = (data.ideas || []).map((idea) => ({
+          id: idea._id || idea.id,
+          title: idea.title,
+          status: idea.status,
+          category: idea.category || "n/a"
+        }));
+
+        renderIdeas();
+        const selectedId = document.getElementById("ideaSelect").value;
+        if (selectedId) {
+          await showIdeaDetail(selectedId);
+        }
+        if (!silent) {
+          show("listStatus", `Loaded ${loadedIdeas.length} ideas.`);
+        }
+      } catch (err) {
+        show("listStatus", `Load ideas failed: ${err.message}`, true);
+      } finally {
+        setBusy(button, false, "Loading...");
+      }
+    };
+
+    const createDemoImageFile = async (label, accentColor) => {
+      const canvas = document.createElement("canvas");
+      canvas.width = 720;
+      canvas.height = 420;
+      const ctx = canvas.getContext("2d");
+
+      ctx.fillStyle = "#f6fbf8";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = accentColor;
+      ctx.fillRect(0, 0, canvas.width, 120);
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 34px sans-serif";
+      ctx.fillText("InnovatEPAM Idea", 28, 74);
+      ctx.fillStyle = "#1d2f34";
+      ctx.font = "600 28px sans-serif";
+      ctx.fillText(label, 28, 196);
+      ctx.font = "20px sans-serif";
+      ctx.fillText("Demo image generated from User Portal", 28, 236);
+
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+      return new File([blob], `${label.toLowerCase().replace(/\s+/g, "-")}.png`, { type: "image/png" });
+    };
+
+    const createDemoIdea = async (payload, accentColor = "#0f746d") => {
+      const formData = new FormData();
+      formData.append("title", payload.title);
+      formData.append("description", payload.description);
+      formData.append("category", payload.category);
+      appendCategoryDetailsToFormData(formData, payload.category, payload.categoryDetails || {});
+      const imageFile = await createDemoImageFile(payload.title, accentColor);
+      formData.append("file", imageFile);
+
+      const res = await fetch("/api/ideas", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData
+      });
+      return res;
+    };
+
+    document.getElementById("registerBtn").addEventListener("click", async (event) => {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const button = event.currentTarget;
+
+      if (!email || !password) {
+        show("authStatus", "Email and password are required.", true);
+        return;
+      }
+
+      setBusy(button, true, "Registering...");
+      try {
+        const res = await fetch("/api/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          show("authStatus", `Register error: ${data.error || "Unknown error"}`, true);
+          return;
+        }
+        show("authStatus", `Register success: ${data.user.email}`);
+      } catch (err) {
+        show("authStatus", `Register failed: ${err.message}`, true);
+      } finally {
+        setBusy(button, false, "Registering...");
+      }
+    });
+
+    document.getElementById("loginBtn").addEventListener("click", async (event) => {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const button = event.currentTarget;
+
+      if (!email || !password) {
+        show("authStatus", "Email and password are required.", true);
+        return;
+      }
+
+      setBusy(button, true, "Logging in...");
+      try {
+        const res = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          show("authStatus", `Login error: ${data.error || "Unknown error"}`, true);
+          token = "";
+          currentRole = "";
+          refreshRolePill();
+          return;
+        }
+        token = data.token || "";
+        currentRole = data.user && data.user.role ? data.user.role : "";
+        refreshRolePill();
+        show("authStatus", `Login success: ${data.user.email} (${currentRole || "submitter"})`);
+      } catch (err) {
+        show("authStatus", `Login failed: ${err.message}`, true);
+        token = "";
+        currentRole = "";
+        refreshRolePill();
+      } finally {
+        setBusy(button, false, "Logging in...");
+      }
+    });
+
+    document.getElementById("submitBtn").addEventListener("click", async (event) => {
+      const button = event.currentTarget;
+      if (!token) {
+        show("ideaStatus", "Please login first.", true);
+        return;
+      }
+
+      const title = document.getElementById("title").value.trim();
+      const description = document.getElementById("description").value.trim();
+      const category = document.getElementById("category").value;
+      const categoryDetails = collectCategoryDetails(category);
+      const fileInput = document.getElementById("ideaFile");
+      const selectedFile = fileInput.files && fileInput.files.length ? fileInput.files[0] : null;
+
+      if (!title || !description) {
+        show("ideaStatus", "Title and description are required.", true);
+        return;
+      }
+
+      const categoryError = validateCategoryDetails(category, categoryDetails);
+      if (categoryError) {
+        show("ideaStatus", categoryError, true);
+        return;
+      }
+
+      if (selectedFile && !["image/jpeg", "image/png"].includes(selectedFile.type)) {
+        show("ideaStatus", "Only JPG and PNG photos are allowed.", true);
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("category", category);
+      appendCategoryDetailsToFormData(formData, category, categoryDetails);
+      if (selectedFile) {
+        formData.append("file", selectedFile);
+      }
+
+      setBusy(button, true, "Submitting...");
+      try {
+        let res;
+        if (currentDraftId) {
+          if (selectedFile) {
+            show("ideaStatus", "To replace attachment on a draft, use Save Draft first.", true);
+            return;
+          }
+          res = await fetch(`/api/ideas/drafts/${currentDraftId}/submit`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({ title, description, category, ...categoryDetails })
+          });
+        } else {
+          res = await fetch("/api/ideas", {
+            method: "POST",
+            headers: { Authorization: `Bearer ${token}` },
+            body: formData
+          });
+        }
+        const data = await res.json();
+        if (!res.ok) {
+          show("ideaStatus", `Submit error: ${data.error || "Unknown error"}`, true);
+          return;
+        }
+
+        const photoInfo = selectedFile ? ` | Photo: ${selectedFile.name}` : "";
+        const submittedId = data.idea && data.idea.id ? data.idea.id : "unknown";
+        const submittedStatus = data.idea && data.idea.status ? data.idea.status : "submitted";
+        show("ideaStatus", `Idea submitted: ${submittedId} (${submittedStatus})${photoInfo}`);
+        fileInput.value = "";
+        currentDraftId = "";
+        document.getElementById("draftSelect").value = "";
+        await loadDrafts(true);
+        await loadIdeas(true);
+      } catch (err) {
+        show("ideaStatus", `Submit failed: ${err.message}`, true);
+      } finally {
+        setBusy(button, false, "Submitting...");
+      }
+    });
+
+    document.getElementById("saveDraftBtn").addEventListener("click", async (event) => {
+      if (!token) {
+        show("ideaStatus", "Please login first.", true);
+        return;
+      }
+
+      const button = event.currentTarget;
+      const title = document.getElementById("title").value.trim();
+      const description = document.getElementById("description").value.trim();
+      const category = document.getElementById("category").value;
+      const categoryDetails = collectCategoryDetails(category);
+      const fileInput = document.getElementById("ideaFile");
+      const selectedFile = fileInput.files && fileInput.files.length ? fileInput.files[0] : null;
+
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("category", category);
+      appendCategoryDetailsToFormData(formData, category, categoryDetails);
+      if (selectedFile) {
+        formData.append("file", selectedFile);
+      }
+
+      setBusy(button, true, "Saving...");
+      try {
+        const endpoint = currentDraftId ? `/api/ideas/drafts/${currentDraftId}` : "/api/ideas/drafts";
+        const method = currentDraftId ? "PUT" : "POST";
+        const res = await fetch(endpoint, {
+          method,
+          headers: { Authorization: `Bearer ${token}` },
+          body: formData
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          show("ideaStatus", `Save draft error: ${data.error || "Unknown error"}`, true);
+          return;
+        }
+
+        currentDraftId = data.draft.id;
+        show("ideaStatus", `Draft saved: ${data.draft.id}`);
+        fileInput.value = "";
+        await loadDrafts(true);
+        document.getElementById("draftSelect").value = currentDraftId;
+      } catch (err) {
+        show("ideaStatus", `Save draft failed: ${err.message}`, true);
+      } finally {
+        setBusy(button, false, "Saving...");
+      }
+    });
+
+    document.getElementById("loadDraftsBtn").addEventListener("click", async () => {
+      await loadDrafts();
+    });
+
+    document.getElementById("draftSelect").addEventListener("change", async (event) => {
+      await loadDraftIntoForm(event.target.value);
+    });
+
+    document.getElementById("loadIdeasBtn").addEventListener("click", async () => {
+      await loadIdeas();
+    });
+
+    document.getElementById("ideaSelect").addEventListener("change", async (event) => {
+      await showIdeaDetail(event.target.value);
+    });
+
+    document.getElementById("seedIdeasBtn").addEventListener("click", async (event) => {
+      if (!token) {
+        show("listStatus", "Please login first.", true);
+        return;
+      }
+
+      const button = event.currentTarget;
+      setBusy(button, true, "Creating...");
+      try {
+        const suffix = Date.now().toString().slice(-5);
+        const templates = [
+          {
+            title: `User Smart Onboarding ${suffix}`,
+            description: "Create personalized onboarding steps for each team using role-based guidance.",
+            category: "Process Improvement",
+            categoryDetails: {
+              processArea: "Employee onboarding",
+              efficiencyGain: "Reduce setup time by 30%"
+            }
+          },
+          {
+            title: `User Productivity Bot ${suffix}`,
+            description: "Automate repetitive daily reporting and reminders through a lightweight chatbot.",
+            category: "Technical",
+            categoryDetails: {
+              techStack: "Node.js + OpenAI API",
+              complexity: "Medium"
+            }
+          },
+          {
+            title: `User Service Upsell ${suffix}`,
+            description: "Build a service recommendation module to improve client expansion opportunities.",
+            category: "Client Solution",
+            categoryDetails: {
+              clientSegment: "Enterprise accounts",
+              valueProposition: "Personalized add-on recommendations"
+            }
+          }
+        ];
+        const colors = ["#0f746d", "#12846f", "#0d6e84"];
+        const created = [];
+
+        for (let i = 0; i < templates.length; i += 1) {
+          const createRes = await createDemoIdea(templates[i], colors[i % colors.length]);
+          const createData = await createRes.json();
+          if (!createRes.ok) {
+            show("listStatus", `Create idea error: ${createData.error || "Unknown error"}`, true);
+            return;
+          }
+          created.push(createData.idea.id);
+        }
+
+        await loadIdeas(true);
+        const firstCreated = created[0];
+        document.getElementById("ideaSelect").value = firstCreated;
+        await showIdeaDetail(firstCreated);
+        show("listStatus", `Created ${created.length} sample ideas with images.`);
+      } catch (err) {
+        show("listStatus", `Create sample ideas failed: ${err.message}`, true);
+      } finally {
+        setBusy(button, false, "Creating...");
+      }
+    });
+
+    refreshRolePill();
+    renderCategoryFields();
+    renderIdeas();
+
+    document.getElementById("category").addEventListener("change", () => {
+      renderCategoryFields();
+    });
+  </script>
+</body>
+</html>

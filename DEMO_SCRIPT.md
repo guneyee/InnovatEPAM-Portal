@@ -1,198 +1,99 @@
-# InnovatEPAM Portal MVP - Demo Script (3-5 minutes)
+# InnovatEPAM Portal - Demo Script (4-6 minutes)
 
-## Intro (30 seconds)
+## 1. Intro (20-30 seconds)
+"Hi, this is InnovatEPAM Portal. It is an idea management platform built with AI-assisted Spec-Driven Development. I will show the live workflow, the implemented advanced phases, and test evidence."
 
-> "Hi! I'm demonstrating the **InnovatEPAM Portal MVP** - an employee innovation management platform built entirely using **AI-native Spec-Driven Development**. 
-> 
-> This project demonstrates how using specifications, architecture decisions, and test-driven development with AI assistance produces production-ready code in a single sprint."
+## 2. Current Build Status (30 seconds)
+What is implemented now:
+1. Phase 1 Core Portal: complete
+2. Phase 2 Smart Submission Forms: complete
+3. Phase 3 Multi-Media: partial (single attachment flow active)
+4. Phase 4 Draft Management: complete
+5. Phase 5 Multi-Stage Review: complete
+6. Phase 6 Blind Review: complete
+7. Phase 7 Scoring System: complete
 
----
+Quality snapshot:
+1. 59/59 tests passing
+2. 4/4 test suites passing
 
-## What I Built (1 minute)
+## 3. Live Demo Flow (2-3 minutes)
 
-**3 Core Features:**
+### Step A - User Submission with Dynamic Form
+1. Open /user
+2. Login as submitter
+3. Change category and show dynamic required fields
+4. Save as draft first
+5. Load draft, finalize fields, submit
 
-1. **User Authentication** - Secure login system
-   - JWT tokens (7-day expiry)
-   - Password hashing with bcrypt
-   - Role-based access (submitter, evaluator, admin)
+Talking point:
+"This demonstrates Phase 2 and Phase 4 together: adaptive fields and draft lifecycle."
 
-2. **Idea Submission** - Employees propose innovations
-   - Rich form with title, description, category
-   - File attachment support (PDFs, images, docs)
-   - Full validation
+### Step B - Admin Multi-Stage Review
+1. Open /admin
+2. Login as admin
+3. Load ideas
+4. Show stage config panel (enable/disable and blind toggles)
+5. Approve current stage to move Screening -> Technical
 
-3. **Evaluation Workflow** - Admins manage ideas
-   - Status tracking: submitted → under_review → accepted/rejected
-   - Status history with comments
-   - Audit trail for compliance
+Talking point:
+"This is Phase 5: a real 4-stage pipeline with ordered transitions and stage history."
 
----
+### Step C - Blind Review + Scoring
+1. Keep a stage in blind mode
+2. Mention evaluator view masks submitter identity on active blind stage
+3. Enter stage score (1-10)
+4. Apply score and show score summary update
 
-## Live Demo (2 minutes)
+Talking point:
+"This is Phase 6 and Phase 7: identity masking in evaluator context and stage-level scoring with aggregate summary."
 
-### Demo Scenario: Employee submits idea, Admin reviews it
+## 4. API Highlights (45 seconds)
+Show these implemented endpoints quickly:
+1. POST /api/ideas/drafts
+2. GET /api/ideas/drafts
+3. POST /api/ideas/drafts/:id/submit
+4. GET /api/ideas/stages/config
+5. PUT /api/ideas/stages/config
+6. PUT /api/ideas/:id/stages/decision
+7. PUT /api/ideas/:id/stages/score
 
-**Step 1: Show API Documentation**
+Short note:
+"The API now supports complete draft, staged review, blind mode, and scoring workflows."
+
+## 5. Test Proof (30-45 seconds)
+Run:
 ```bash
-# Open README.md to show architecture overview
-# Show API endpoints documented
+npm test -- --runInBand
 ```
 
-**Step 2: Show Test Coverage**
-```bash
-npm run test:coverage
+Expected key output to mention:
+1. Test Suites: 4 passed, 4 total
+2. Tests: 59 passed, 59 total
 
-# Show output:
-# ✅ 35/35 tests passing
-# ✅ 76.1% code coverage (target: 70%)
-# ✅ 8 core features implemented
-```
+Optional callout:
+"Integration tests include auth, idea lifecycle, drafts, multi-stage review, blind review, and scoring."
 
-**Step 3: Walk through Project Structure**
-```
-docs/
-  ├── PRD.md            ← What we're building
-  ├── STORIES.md        ← How to verify it
-  ├── CONSTITUTION.md   ← Testing principles
-  └── adr/             ← Tech decisions documented
+## 6. Known Gap (10 seconds)
+"Phase 3 is partially complete: single attachment exists, but full multi-attachment management is the next increment."
 
-src/
-  ├── models/           ← User, Idea schemas
-  ├── routes/           ← API endpoints
-  └── middleware/       ← Auth, validation
+## 7. Closing (20 seconds)
+"This delivery proves an end-to-end portal with advanced workflow controls and strong automated validation. Specs + tests + AI gave fast delivery without losing traceability or quality."
 
-tests/                  ← 35 tests, 76% coverage
-```
+## 8. Q&A Ready Answers
+Why no deployment requirement?
+1. Local demo is acceptable for this lab.
+2. The app remains usable even if Atlas is unavailable because fallback mode is implemented.
 
-**Step 4: Show Key Code Example**
+How is blind review enforced?
+1. Stage has a blind toggle.
+2. Evaluator sees masked identity on active blind stage.
+3. Admin retains full visibility.
 
-```javascript
-// Example: POST /api/auth/register endpoint
-// 1. Validates email format
-// 2. Checks password length (8+ chars)
-// 3. Rejects duplicates
-// 4. Hashes password with bcrypt
-// 5. Returns JWT token
-
-// This was built from a User Story with acceptance criteria
-// AND it has tests that verify each requirement
-```
-
-**Step 5: Show Test Example**
-
-```javascript
-describe('POST /api/auth/register', () => {
-  it('should register user successfully with valid data', async () => {
-    const res = await request(app)
-      .post('/api/auth/register')
-      .send({ email: 'test@example.com', password: 'password123' });
-
-    expect(res.status).toBe(201);
-    expect(res.body.user).toBeDefined();
-  });
-  // ... 14 more tests covering all edge cases
-});
-```
+How is score calculated?
+1. Stage scores are stored per stage decision context.
+2. Aggregate summary includes total, stage count, average, and per-stage map.
 
 ---
 
-## Key Insight: How AI + Spec-Driven Development Works (30 seconds)
-
-**The Workflow:**
-
-1. **WRITE SPEC FIRST** 
-   - Story 1.2: "User Registration"
-   - Acceptance criteria (email validation, password hashing, etc.)
-
-2. **REFERENCE SPEC IN PROMPT**
-   - "Implement Story 1.2 with JWT + bcrypt per ADR-002"
-
-3. **AI GENERATES BETTER CODE**
-   - Because it has clear requirements
-   - Because it knows the architecture decisions
-   - Because it knows the testing principles
-
-4. **TESTS PROVE IT WORKS**
-   - 35/35 passing = confidence
-   - 76% coverage = comprehensive
-
-5. **GIT COMMITS TELL THE STORY**
-   - Meaningful commits document progress
-   - Future developers understand why
-
----
-
-## Transformation (1 Key Takeaway)
-
-**Before (Module 01 - Vibe Coding):**
-- ❌ "Just build it" → unclear requirements
-- ❌ No tests → broken in production
-- ❌ Ad-hoc architecture → tech debt
-
-**After (Module 08 - AI-Native SDD):**
-- ✅ Specs drive quality
-- ✅ Tests prove it works
-- ✅ Architecture documented
-- ✅ AI produces better code
-- ✅ Team can maintain it
-
-> **Key Learning**: "Specifications aren't a bottleneck - they're a foundation. When you give AI clear specs + tests, it produces production-ready code faster than vibe coding ever could."
-
----
-
-## Questions I Can Answer
-
-**"Why specs?"**
-> Specifications are the bridge between business requirements and code. They give AI assistant clear direction and give your team a shared understanding.
-
-**"Didn't TDD take more time?"**
-> Initial tests added ~10% time. But catching bugs during RED phase vs in production = massive time savings long-term.
-
-**"How does this scale?"**
-> ADRs are documented for Phases 2-7. Any developer can follow the same process: SPEC → TEST → CODE → COMMIT.
-
-**"Can this go to production?"**
-> 76% coverage + 35/35 passing tests = production-ready. The next step would be deploying to cloud (MongoDB Atlas + API Gateway).
-
----
-
-## Closing
-
-> "InnovatEPAM Portal demonstrates that **AI-native development isn't about letting AI write all the code - it's about using AI effectively through clear specifications and test-driven development**. 
->
-> The result? A working, tested, documented MVP in one sprint that any team member can understand and extend.
->
-> That's the future of development. Thanks!"
-
----
-
-## Technical Details (If Asked)
-
-### Stack
-- Node.js + Express.js
-- MongoDB with Mongoose
-- JWT authentication
-- Jest + Supertest for testing
-- In-memory MongoDB for tests
-
-### Why These Choices?
-See [ADR-001](docs/adr/ADR-001-TECH-STACK.md) for reasoning
-
-### Test Stats
-- **Auth tests**: 15 (login, register, logout, edge cases)
-- **Ideas tests**: 20 (CRUD, validation, status transitions)
-- **Coverage**: 89% middleware, 100% models, 73% routes
-
-### Deployment Ready?
-- ✅ Tests passing (35/35)
-- ✅ Coverage > 70% (76.1%)
-- ✅ Environment variables configured
-- ✅ Git history clean
-- ⏳ Next: MongoDB Atlas + deployment platform
-
----
-
-**Total Demo Time**: 3-5 minutes  
-**Prepared by**: AI-Native Development Team  
-**Date**: May 14, 2026
+Prepared for: Module 08 Capstone Demo

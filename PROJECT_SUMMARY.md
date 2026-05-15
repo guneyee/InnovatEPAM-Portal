@@ -1,362 +1,112 @@
-# Project Summary - InnovatEPAM Portal MVP
-
-## Overview
-**InnovatEPAM Portal** is a secure employee innovation management platform built with AI-native development workflow (Spec-Driven Development). The MVP enables employees to submit ideas, admins to evaluate them, and tracks the complete workflow with JWT-based authentication and comprehensive test coverage.
-
-**Status**: MVP Phase 1 Complete ✅  
-**Time**: 8.5 hours sprint  
-**Tests**: 44/44 passing (82% coverage)
-
-## Bootcamp Meeting Summary
-
-### Meeting Context
-- Session led by Hanna Hrynevich as a fill-in for Ekaterine.
-- Focused on the final course project, an idea submission portal MVP.
-
-### Key Requirements
-- Build an MVP with user management, idea submission, file attachments, and idea viewing.
-- Include admin/jury review flow with status tracking and feedback.
-- Use Spec-It workflow for constitution, specify, plan, tasks, and implement phases.
-
-### Presentation Expectations
-- Final presentation is on Friday.
-- Demo and code walkthrough are expected.
-- Slides are optional; Visual Studio Code is preferred for walkthroughs.
-
-### Support and Scheduling
-- Stand-ups are scheduled at 9:00 and 11:00 AM.
-- Instructors are available via chat and direct questions if stuck.
-- Deployment is not required; local demos are acceptable.
-- Post-MVP extensions are optional and not required for completion.
-
-## Sprint Operations Completion
-
-### Non-Code Deliverables
-1. Standup cadence record: Completed in [docs/SPRINT_EXECUTION_LOG.md](docs/SPRINT_EXECUTION_LOG.md)
-2. Project documentation pack: Completed
-3. Demo script package: Completed in [DEMO_SCRIPT.md](DEMO_SCRIPT.md)
-4. Story/spec alignment: Completed in [docs/STORIES.md](docs/STORIES.md)
-
-### External/Manual Validation Items
-1. Repository link shared with instructors: Yes (remote configured and pushed to `origin/main`)
-2. Showcase delivery attendance: Pending manual confirmation
-3. Standup call attendance records: Pending manual confirmation
-
-
-## Module 08 Lab Completion Checklist
-
-### Required Deliverables
-- [x] InnovatEPAM Portal MVP complete (or significant progress)
-- [x] User authentication working
-- [x] Idea submission working
-- [x] Tests passing
-- [x] PROJECT_SUMMARY.md complete
-- [ ] Demo delivered during showcase (manual)
-
-### Quality Indicators
-- [x] Tests follow Testing Principles from constitution
-- [x] Code aligns with ADRs
-- [x] AI used throughout workflow
-- [x] Regular commits to repository
-- [x] Can articulate transformation from Module 01
-
-### Bonus Achievements
-- [x] Full MVP complete
-- [x] Phases 2-7 progress documented (stories + ADR backlog)
-- [ ] 80%+ test coverage
-- [x] Clean git history with meaningful commits
-
-### Manual Evidence Still Needed
-1. Showcase demo attendance confirmation
-2. Standup attendance confirmation
-
-### Delivery Notes
-1. Showcase attendance: Confirmed via live demo of the InnovatEPAM Portal MVP, including health check, authentication, idea submission, and idea listing.
-2. Standup attendance: Confirmed through progress updates shared at the scheduled standups (+2h, +4h, +6h, +8h).
-
-### Suggested Evidence Notes
-│ **Overall** │ **82%** │ 85%    │ 73%    │ 82.9%  │
-2. Standup: progress checkpoints recorded at +2h, +4h, +6h, and +8h.
-
-- ✅ **Role-Based Access** - Submitter, Evaluator, Admin roles with permission enforcement
-- ✅ **Idea Submission** - Title (1-100 chars), description (10-2000 chars), category
-- ✅ **Security** - Password hashing (bcrypt 10 rounds), role-based middleware, input validation
-### Phases 2-7 Features (Planned, ADRs documented)
- 82.9% achieved (target: 70%)
-- 📎 **Phase 3**: Multi-Media Support (3 files max, extended types: video, presentations)
-- 📝 **Phase 4**: Draft Management (auto-save drafts)
-- 🔍 **Phase 5**: Multi-Stage Review (configurable stages)
-- 👁️ **Phase 6**: Blind Review (anonymous evaluation)
-- ⭐ **Phase 7**: Scoring System (1-5 ratings)
-
-Based on ADRs (Architectural Decision Records):
-
-- **File Storage**: Local filesystem (`./uploads`)
-- **Testing**: Jest + Supertest
-   - Express for rapid development
-   - MongoDB for schema flexibility
-   - 7-day token expiry
-   - Rate limiting on auth endpoints (future)
- 82% coverage achieved with zero "technical debt" rework
-3. **ADR-003**: Draft Management (Phase 2) - Documented
-4. **ADR-004**: Multi-Media Support (Phase 3) - Documented
-
----
-
-## Test Coverage
-
-```
-┌─────────────┬─────────┬────────┬────────┬────────┐
-│ File        │ Stmts   │ Branch │ Funcs  │ Lines  │
-├─────────────┼─────────┼────────┼────────┼────────┤
-│ middleware  │ 89.47%  │ 80%    │ 100%   │ 89.47% │
-│ models      │ 100%    │ 100%   │ 100%   │ 100%   │
-│ routes      │ 73.13%  │ 74.6%  │ 58.33% │ 73.68% │
-├─────────────┼─────────┼────────┼────────┼────────┤
-│ **Overall** │ **82%** │ 85%    │ 73%    │ 82.9%  │
-└─────────────┴─────────┴────────┴────────┴────────┘
-```
-
-### Test Stats
-- **Total Tests**: 44
-- **Passing**: 44 ✅
-- **Coverage Target**: 70%+ → **Achieved: 82%**
-- **Test Suites**: 4 (auth, ideas, middleware, file download)
-
-### Testing Principles (Constitution)
-- ✅ Test-Driven Development (RED → GREEN → COMMIT)
-- ✅ Arrange-Act-Assert (AAA) pattern
-- ✅ Mock external dependencies (DB, file system)
-- ✅ Integration tests with real database (in-memory MongoDB)
-- ✅ Validation of all edge cases
-
----
-
-## Development Process
-
-### Workflow Used
-1. **SPEC**: Created PRD, User Stories, ADRs, Testing Constitution
-2. **CONTEXT**: Referenced specs in all AI prompts
-3. **GENERATE**: Used AI with spec references for TDD
-4. **VALIDATE**: Ran tests after each feature
-5. **COMMIT**: Pushed to Git with meaningful messages
-
-### Commits Made
-```
-[master 3109438] docs: Add Phase 2-3 ADRs (future phases)
-[master 0d955ba] feat: MVP Phase 1 complete - Auth & Idea Management
-```
-
----
-
-## Key Metrics
-
-| Metric | Value |
-|--------|-------|
-| **Sprint Duration** | 8.5 hours |
-| **Features Completed** | 8 core MVP features |
-| **Test Cases Written** | 44 |
-| **Test Pass Rate** | 100% (44/44) |
-| **Code Coverage** | 82.9% |
-| **Files Created** | 21 (src/, tests/, docs/) |
-| **API Endpoints** | 7 (POST/GET/PUT) |
-| **Models** | 2 (User, Idea) |
-| **Middleware** | 2 (auth, authorize) |
-
----
-
-## Transformation Reflection
-
-### Before (Module 01 - Vibe Coding)
-- ❌ No specifications - "I'll figure it out as I go"
-- ❌ No tests - "I'll test manually"
-- ❌ Commits unclear - "Updated stuff"
-- ❌ Architecture ad-hoc - "Seems to work"
-- ❌ No documentation - "Code is self-documenting"
-
-### After (Module 08 - AI-Native SDD)
-- ✅ **Spec-Driven**: PRD, Epics, Stories, ADRs - crystal clear requirements
-- ✅ **Test-First**: RED → GREEN → COMMIT - tests written before code
-- ✅ **Meaningful Commits**: Descriptive messages, trackable progress
-- ✅ **Architecture Documented**: Every tech decision reasoned & recorded
-- ✅ **Constitution-Based Testing**: Testing principles defined upfront
-
-### Key Learnings
-
-**1. Specifications Drive Quality**
-- Writing stories first eliminated vague requirements
-- AI generated better code when given spec context
-- Tests were clearer because requirements were explicit
-
-**2. TDD Saves Time, Not Costs Time**
-- Writing tests first felt slower initially
-- But catching bugs during RED phase = fewer fixes later
-- 82% coverage achieved with zero "technical debt" rework
-
-**3. Documentation as Living Artifacts**
-- ADRs captured decisions that would've been lost
-- Future developers (or future me) can understand WHY
-- Phases 2-7 can now be built using same process
-
-**4. AI Works Best With Context**
-- Vague prompts → mediocre code
-- Specific prompts with spec references → production-ready code
-- "Build auth" vs "Implement Story 1.2 with JWT + bcrypt per ADR-002" = night and day
-
-**5. Git Tells the Story**
-- Meaningful commits document the journey
-- Coverage reports prove quality
-- Other team members can review the evolution
-
----
-
-## Testing Principles Applied
-
-From [docs/CONSTITUTION.md](docs/CONSTITUTION.md):
-
-✅ **Test-Driven Development (TDD)**
-- Tests written BEFORE implementation
-- RED phase: Failing test documents requirement
-- GREEN phase: Minimal code to pass test
-- Verified in every commit
-
-✅ **Comprehensive Coverage**
-- 82.9% achieved (target: 70%)
-- All happy paths tested
-- All error cases tested
-- Edge cases validated
-
-✅ **Clear Test Structure (AAA)**
-- **Arrange**: Set up test data
-- **Act**: Execute the function/endpoint
-- **Assert**: Verify the result
-
-✅ **Fast Feedback** (<10 seconds)
-- Full suite runs in ~8 seconds
-- Developers get instant validation
-- TDD cycle is tight (seconds, not minutes)
-
----
-
-## Project Structure
-
-```
-innovatepam-portal/
-├── README.md                 # Project overview
-├── package.json             # Dependencies
-├── jest.config.js           # Test configuration
-├── .env.example             # Environment variables
-│
-├── docs/
-│   ├── PRD.md              # Product Requirements Document
-│   ├── STORIES.md          # User Stories with acceptance criteria
-│   ├── CONSTITUTION.md     # Testing Principles & Strategy
-│   ├── AGENTS.md           # AI-Native Development Guidelines
-│   └── adr/
-│       ├── ADR-001-TECH-STACK.md
-│       ├── ADR-002-AUTH-STRATEGY.md
-│       ├── ADR-003-DRAFT-MANAGEMENT.md (Phase 2)
-│       └── ADR-004-MULTI-MEDIA.md (Phase 3)
-│
-├── src/
-│   ├── app.js              # Express app & MongoDB setup
-│   ├── models/
-│   │   ├── User.js         # User schema & model
-│   │   └── Idea.js         # Idea schema & model
-│   ├── routes/
-│   │   ├── auth.js         # POST /register, /login, /logout
-│   │   └── ideas.js        # CRUD endpoints for ideas
-│   └── middleware/
-│       └── auth.js         # JWT & role-based authorization
-│
-├── tests/
-│   ├── setup.js            # Test environment (in-memory MongoDB)
-│   └── integration/
-│       ├── auth.test.js    # 15 auth tests
-│       └── ideas.test.js   # 20 idea tests
-│
-└── uploads/                # File attachment storage
-```
-
----
-
-## API Endpoints
-
-### Authentication
-- `POST /api/auth/register` - Register new user (email, password)
-- `POST /api/auth/login` - Login & get JWT token
-- `POST /api/auth/logout` - Logout (client-side token removal)
-
-### Ideas
-- `POST /api/ideas` - Submit new idea (requires auth)
-- `GET /api/ideas` - List ideas (paginated, filterable by status)
-- `GET /api/ideas/:id` - View specific idea
-- `PUT /api/ideas/:id/status` - Update status (admin/evaluator only)
-- `GET /api/ideas/:id/file` - Download attachment
-
-### Health
-- `GET /health` - API health check
-
----
-
-## Running the Project
-
-### Development
-```bash
-npm install
-npm run dev    # Starts on http://localhost:3000
-```
-
-### Testing
-```bash
-npm test              # Run all tests
-npm run test:watch   # Watch mode for development
-npm run test:coverage # Generate coverage report
-```
-
-### Deployment (Future)
-```bash
-# Set environment variables:
-# MONGODB_URI=mongodb://prod-cluster
-# JWT_SECRET=production-secret-key
-# NODE_ENV=production
-npm start
-```
-
----
-
-## Next Steps (Phases 2-7)
-
-With the foundation in place, future phases can follow the same SDD workflow:
-
-1. **Phase 2 (Draft Management)**: Use ADR-003, write stories, generate tests, implement
-2. **Phase 3 (Multi-Media)**: Use ADR-004, extend file attachments to array
-3. **Phase 4-7**: Follow same pattern - SPEC → TEST → CODE → COMMIT
-
-All phases are prepared in our ADRs and STORIES.md with acceptance criteria ready.
-
----
-
-## Lessons for Future Projects
-
-1. **Start with SPEC** - Not with code
-   - PRD tells you WHAT to build
-   - Stories tell you HOW to verify it
-   - ADRs tell you WHY you made decisions
-
-2. **Use AI Effectively** - Reference your specs
-   - Bad: "Build authentication"
-   - Good: "Implement Story 1.2 per docs/STORIES.md using ADR-002 strategy"
-
-3. **Test First is Sustainable**
-   - Initial investment: +5% time
-   - Bug fix savings: -30% maintenance time
-   - Team confidence: ∞
-
-4. **Document Decisions**
-   - Future you will thank present you
-   - ADRs capture context that code comments can't
-   - New team members understand the "why"
+# Project Summary - InnovatEPAM Portal
+
+## 1. Executive Summary
+InnovatEPAM Portal is an idea management platform built with an AI-assisted Spec-Driven Development workflow.
+
+Current result:
+1. Core portal features are implemented and working.
+2. Advanced phases (dynamic forms, drafts, multi-stage review, blind review, scoring) are implemented.
+3. Automated validation is green with 59/59 tests passing.
+
+## 2. Current Delivery Status
+Overall implementation status:
+1. Phase 1 Core Portal: Complete
+2. Phase 2 Smart Submission Forms: Complete
+3. Phase 3 Multi-Media Support: Partial (single attachment flow active, multi-attachment still pending)
+4. Phase 4 Draft Management: Complete
+5. Phase 5 Multi-Stage Review: Complete
+6. Phase 6 Blind Review: Complete
+7. Phase 7 Scoring System: Complete
+
+## 3. Implemented Product Capabilities
+Authentication and roles:
+1. Register, login, logout with JWT.
+2. Roles: submitter, evaluator, admin.
+
+Idea lifecycle:
+1. Idea creation with category-specific validation.
+2. Idea listing and detail view.
+3. Attachment upload and file download.
+4. Status transitions with history.
+
+Dynamic submission (Phase 2):
+1. Category-driven fields for Technical, Process Improvement, Client Solution, Other.
+2. Required field checks on client and server.
+
+Draft management (Phase 4):
+1. Save draft with partial data.
+2. List drafts for current submitter.
+3. Edit draft.
+4. Submit draft with full validation at submit time.
+
+Multi-stage review (Phase 5):
+1. 4-stage pipeline: Screening, Technical, Business Impact, Final Decision.
+2. Per-stage approve/reject decisions.
+3. Stage history with evaluator and timestamp.
+4. Admin stage configuration (enable/disable).
+
+Blind review (Phase 6):
+1. Per-stage blind toggle.
+2. Evaluator identity masking when active stage is blind.
+3. Admin still sees full identity.
+
+Scoring (Phase 7):
+1. Stage scoring (1-10).
+2. Score history by stage and evaluator.
+3. Score summary: total, scored stage count, average, per-stage scores.
+
+## 4. Technical Architecture
+Backend:
+1. Node.js + Express.
+2. MongoDB + Mongoose.
+3. In-memory fallback mode when DB is unavailable.
+
+Security:
+1. JWT auth with role-based authorization middleware.
+2. Password hashing with bcrypt.
+3. Input validation across auth and idea routes.
+
+Frontend:
+1. Separate pages for Home, User Portal, Admin Portal.
+2. Admin workflow UI for stage decisions, blind toggles, and scoring.
+
+## 5. API Surface (Key Endpoints)
+Authentication:
+1. POST /api/auth/register
+2. POST /api/auth/login
+3. POST /api/auth/logout
+
+Ideas and drafts:
+1. POST /api/ideas
+2. GET /api/ideas
+3. GET /api/ideas/:id
+4. PUT /api/ideas/:id/status
+5. GET /api/ideas/:id/file
+6. POST /api/ideas/drafts
+7. GET /api/ideas/drafts
+8. PUT /api/ideas/drafts/:id
+9. POST /api/ideas/drafts/:id/submit
+
+Stage review, blind config, scoring:
+1. GET /api/ideas/stages/config
+2. PUT /api/ideas/stages/config
+3. PUT /api/ideas/:id/stages/decision
+4. PUT /api/ideas/:id/stages/score
+
+## 6. Quality and Test Status
+Automated quality status:
+1. Test suites: 4/4 passing.
+2. Tests: 59/59 passing.
+3. Integration coverage includes auth, ideas, file handling, drafts, multi-stage review, blind review, and scoring.
+
+## 7. Known Limitation
+Multi-Media Support is still partial:
+1. Current implementation supports single attachment flow.
+2. True multi-attachment (multiple files per idea with full preview management) remains a next increment.
+
+## 8. Recommended Next Increment
+Next most valuable step:
+1. Complete Phase 3 fully by moving from single file metadata to attachment arrays, then update UI and tests for add/remove/preview of multiple files.
 
 5. **Commit Often, Meaningfully**
    - Each commit = one complete story/feature

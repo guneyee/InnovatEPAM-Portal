@@ -85,6 +85,18 @@ Stages and scoring:
 1. If MongoDB is unavailable, the app continues in in-memory fallback mode.
 2. This keeps demo and local verification flows usable without Atlas connectivity.
 
+## MCP / Automation
+1. The task-to-issues agent uses the GitHub MCP server with `github/github-mcp-server/issue_write`.
+2. It is intended to convert tasks into dependency-ordered GitHub issues for the repository that matches the configured Git remote.
+
+```mermaid
+flowchart LR
+	A["Tasks in repo"] --> B["GitHub MCP server"]
+	B --> C["GitHub issue creation"]
+```
+
+Evidence: [InnovatEPAM-Portal/.github/agents/speckit.taskstoissues.agent.md](InnovatEPAM-Portal/.github/agents/speckit.taskstoissues.agent.md)
+
 ## Key Documents
 1. [CHANGELOG.md](CHANGELOG.md)
 1. [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)

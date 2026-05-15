@@ -86,6 +86,7 @@ Stages and scoring:
 2. This keeps demo and local verification flows usable without Atlas connectivity.
 
 ## Key Documents
+1. [CHANGELOG.md](CHANGELOG.md)
 1. [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)
 2. [DEMO_SCRIPT.md](DEMO_SCRIPT.md)
 3. [docs/PRD.md](docs/PRD.md)

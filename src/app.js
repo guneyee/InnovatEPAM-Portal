@@ -55,6 +55,14 @@ app.get('/admin', (req, res) => {
   res.sendFile(path.join(publicDir, 'admin.html'));
 });
 
+app.get('/speckit-proof', (req, res) => {
+  res.sendFile(path.join(publicDir, 'speckit-proof.html'));
+});
+
+app.get('/mcp-proof', (req, res) => {
+  res.sendFile(path.join(publicDir, 'mcp-proof.html'));
+});
+
 // Serve Vite React app build output when available.
 app.use('/app/assets', express.static(path.join(reactDistDir, 'assets')));
 app.get('/app', (req, res) => {

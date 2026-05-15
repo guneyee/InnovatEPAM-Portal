@@ -32,7 +32,9 @@ Useful pages:
 2. User Portal: http://localhost:3000/user
 3. Admin Portal: http://localhost:3000/admin
 4. React App (built): http://localhost:3000/app
-5. Health: http://localhost:3000/health
+5. Speckit Proof: http://localhost:3000/speckit-proof
+6. MCP Proof: http://localhost:3000/mcp-proof
+7. Health: http://localhost:3000/health
 
 React + Vite frontend:
 ```bash

@@ -41,12 +41,16 @@ Talking point:
 
 ### Step C - Blind Review + Scoring
 1. Keep a stage in blind mode
-2. Mention evaluator view masks submitter identity on active blind stage
-3. Enter stage score (1-10)
-4. Apply score and show score summary update
+2. Explain that blind masking is enforced for evaluator role while admin retains full visibility
+3. Show the blind toggle in stage configuration as the control point
+4. Enter stage score (1-10)
+5. Apply score and show score summary update
 
 Talking point:
-"This is Phase 6 and Phase 7: identity masking in evaluator context and stage-level scoring with aggregate summary."
+"This is Phase 6 and Phase 7: blind review is a stage-level rule, evaluator identity masking is enforced by role-aware responses, and scoring rolls up into an aggregate summary."
+
+Presenter note:
+"If you are not logging in with a separate evaluator account during the demo, state explicitly that the admin console shows the configuration and scoring controls, while evaluator masking behavior is covered by the implemented role-aware API and automated tests."
 
 ## 4. API Highlights (45 seconds)
 Show these implemented endpoints quickly:
@@ -74,13 +78,21 @@ Expected key output to mention:
 Optional callout:
 "Integration tests include auth, idea lifecycle, drafts, multi-stage review, blind review, and scoring."
 
-## 6. Known Gap (10 seconds)
+## 6. Proof Pages (20-30 seconds)
+Open:
+1. /speckit-proof
+2. /mcp-proof
+
+Talking point:
+"These pages make the process evidence easy to verify in-browser: Speckit artifacts, prerequisite output, and MCP usage proof are part of the delivered repo, not separate notes."
+
+## 7. Known Gap (10 seconds)
 "Phase 3 is partially complete: single attachment exists, but full multi-attachment management is the next increment."
 
-## 7. Closing (20 seconds)
+## 8. Closing (20 seconds)
 "This delivery proves an end-to-end portal with advanced workflow controls and strong automated validation. Specs + tests + AI gave fast delivery without losing traceability or quality."
 
-## 8. Q&A Ready Answers
+## 9. Q&A Ready Answers
 Why no deployment requirement?
 1. Local demo is acceptable for this lab.
 2. The app remains usable even if Atlas is unavailable because fallback mode is implemented.

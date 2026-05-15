@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MCP Proof</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap");
+
+    :root {
+      --bg: #eef1e2;
+      --ink: #1d2818;
+      --muted: #53604f;
+      --line: #cbd7c0;
+      --card: rgba(250, 255, 248, 0.88);
+      --brand: #789a4c;
+      --brand-strong: #47652b;
+      --shadow: 0 24px 50px rgba(35, 52, 24, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 14% 18%, rgba(120, 154, 76, 0.16), transparent 36%),
+        radial-gradient(circle at 82% 16%, rgba(203, 215, 192, 0.7), transparent 32%),
+        linear-gradient(140deg, #eef1e2 0%, #e8eddc 48%, #e2e8d5 100%);
+    }
+
+    .shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 26px 18px 36px;
+    }
+
+    .hero, .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 22px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(120, 154, 76, 0.14);
+      color: var(--brand-strong);
+      border: 1px solid rgba(71, 101, 43, 0.16);
+      text-transform: uppercase;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    h1, h2 {
+      font-family: "Space Grotesk", sans-serif;
+      letter-spacing: -0.03em;
+    }
+
+    h1 {
+      margin: 12px 0 0;
+      font-size: 3rem;
+      line-height: 0.98;
+      max-width: 11ch;
+    }
+
+    .hero p {
+      margin: 12px 0 0;
+      max-width: 72ch;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .grid {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .panel {
+      padding: 18px;
+    }
+
+    .panel h2 {
+      margin: 0 0 10px;
+      font-size: 1.35rem;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    pre {
+      margin: 0;
+      padding: 14px;
+      border-radius: 16px;
+      background: #f3f8ee;
+      border: 1px solid rgba(71, 101, 43, 0.12);
+      overflow: auto;
+      color: #2f4027;
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    .callout {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(120, 154, 76, 0.1);
+      border: 1px solid rgba(71, 101, 43, 0.12);
+      color: #324227;
+      line-height: 1.55;
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <span class="eyebrow">Proof page</span>
+      <h1>MCP was used in this implementation cycle.</h1>
+      <p>This page captures the two practical forms of MCP evidence in the project: repository automation documented through GitHub MCP and a live Context7 MCP resolution result used during the session to fetch current documentation.</p>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <h2>Repository MCP integration</h2>
+        <ul>
+          <li>The README documents GitHub MCP-based automation for tasks-to-issues conversion.</li>
+          <li>The repository contains the task-to-issues agent under <strong>InnovatEPAM-Portal/.github/agents</strong>.</li>
+          <li>The evidence is tied to SpecKit workflow execution and repository issue automation.</li>
+        </ul>
+        <div class="callout">This proves MCP is part of the project tooling surface, not just a one-off mention.</div>
+      </article>
+
+      <article class="panel">
+        <h2>Live Context7 MCP result</h2>
+        <pre>- Title: React
+- Context7-compatible library ID: /reactjs/react.dev
+- Description: React.dev is the official documentation website for React.
+- Code Snippets: 4908
+- Trust Score: 10</pre>
+        <div class="callout">This snippet comes from a Context7 MCP library resolution call executed during the session and was used to validate current React installation and hooks documentation before implementation changes.</div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

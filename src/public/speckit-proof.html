@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Speckit Proof</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap");
+
+    :root {
+      --bg: #eef1e2;
+      --ink: #1e2815;
+      --muted: #53624a;
+      --line: #cdd7b9;
+      --card: rgba(252, 255, 246, 0.88);
+      --brand: #7ca042;
+      --brand-strong: #4d6d25;
+      --shadow: 0 24px 50px rgba(45, 63, 20, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 14%, rgba(124, 160, 66, 0.18), transparent 36%),
+        radial-gradient(circle at 84% 18%, rgba(205, 215, 185, 0.62), transparent 34%),
+        linear-gradient(140deg, #eef1e2 0%, #e8edd9 48%, #e2e8d0 100%);
+    }
+
+    .shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 26px 18px 36px;
+    }
+
+    .hero, .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 22px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(124, 160, 66, 0.14);
+      color: var(--brand-strong);
+      border: 1px solid rgba(77, 109, 37, 0.16);
+      text-transform: uppercase;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    h1, h2 {
+      font-family: "Space Grotesk", sans-serif;
+      letter-spacing: -0.03em;
+    }
+
+    h1 {
+      margin: 12px 0 0;
+      font-size: 3rem;
+      line-height: 0.98;
+      max-width: 10ch;
+    }
+
+    .hero p {
+      margin: 12px 0 0;
+      max-width: 70ch;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .grid {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 14px;
+    }
+
+    .panel {
+      padding: 18px;
+    }
+
+    .panel h2 {
+      margin: 0 0 10px;
+      font-size: 1.35rem;
+    }
+
+    .artifact-list {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    pre {
+      margin: 0;
+      padding: 14px;
+      border-radius: 16px;
+      background: #f4f8eb;
+      border: 1px solid rgba(77, 109, 37, 0.12);
+      overflow: auto;
+      color: #314023;
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    .callout {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(124, 160, 66, 0.1);
+      border: 1px solid rgba(77, 109, 37, 0.12);
+      color: #334424;
+      line-height: 1.55;
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <span class="eyebrow">Proof page</span>
+      <h1>Speckit was used and completed.</h1>
+      <p>This page captures the evidence added during this implementation cycle: the feature package exists under <strong>InnovatEPAM-Portal/specs/main</strong> and the Speckit prerequisite check resolves the full artifact set without warnings.</p>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <h2>Generated feature artifacts</h2>
+        <ol class="artifact-list">
+          <li>spec.md</li>
+          <li>plan.md</li>
+          <li>tasks.md</li>
+          <li>research.md</li>
+          <li>data-model.md</li>
+          <li>quickstart.md</li>
+          <li>contracts/openapi.yaml</li>
+        </ol>
+        <div class="callout">The feature directory is pinned via <strong>.specify/feature.json</strong>, and prerequisite validation now honors that pin so the flow runs cleanly on the repository root.</div>
+      </article>
+
+      <article class="panel">
+        <h2>Speckit command result</h2>
+        <pre>{"FEATURE_DIR":"C:\\Users\\güney\\Desktop\\finallab\\InnovatEPAM-Portal\\specs\\main","AVAILABLE_DOCS":["research.md","data-model.md","contracts/","quickstart.md","tasks.md"]}</pre>
+        <div class="callout">This is the successful output of <strong>check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks</strong>, which confirms the task workflow and supporting documents are present.</div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

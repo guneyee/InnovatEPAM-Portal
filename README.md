@@ -57,6 +57,14 @@ Admin portal:
 
 ![Admin portal](docs/screenshots/admin.png)
 
+Speckit proof:
+
+![Speckit proof](docs/screenshots/speckit-proof.png)
+
+MCP proof:
+
+![MCP proof](docs/screenshots/mcp-proof.png)
+
 ## Core Capabilities
 Auth and roles:
 1. Register, login, logout

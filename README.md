@@ -65,11 +65,11 @@ Proof screens:
 
 Speckit proof:
 
-![Speckit proof](docs/screenshots/speckit-proof.png)
+![Speckit proof](docs/screenshots/speckit-proof-v2.png)
 
 MCP proof:
 
-![MCP proof](docs/screenshots/mcp-proof.png)
+![MCP proof](docs/screenshots/mcp-proof-v2.png)
 
 ## Core Capabilities
 Auth and roles:

@@ -33,6 +33,20 @@ Useful pages:
 3. Admin Portal: http://localhost:3000/admin
 4. Health: http://localhost:3000/health
 
+## Screenshots
+
+Home page:
+
+![Home page](docs/screenshots/home.png)
+
+User portal:
+
+![User portal](docs/screenshots/user.png)
+
+Admin portal:
+
+![Admin portal](docs/screenshots/admin.png)
+
 ## Core Capabilities
 Auth and roles:
 1. Register, login, logout

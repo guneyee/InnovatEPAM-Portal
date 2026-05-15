@@ -8,19 +8,19 @@
     @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap");
 
     :root {
-      --bg: #f6f4ee;
-      --ink: #1d2a2d;
-      --muted: #5b6a6e;
-      --card: #fffef8;
-      --line: #d9d5c7;
-      --teal: #0e6b6f;
-      --teal-strong: #094f52;
-      --sun: #eebf65;
+      --bg: #f6f7f1;
+      --ink: #2a3320;
+      --muted: #646f55;
+      --card: #fdfef9;
+      --line: #d9dfc9;
+      --teal: #8aaa4f;
+      --teal-strong: #73923f;
+      --sun: #d8e7b4;
       --ok-bg: #e8f7e8;
       --ok-text: #1f6d36;
       --err-bg: #fbe5e5;
       --err-text: #9f2f2f;
-      --glow: 0 16px 42px rgba(19, 46, 51, 0.12);
+      --glow: 0 16px 42px rgba(58, 70, 41, 0.12);
     }
 
     * {
@@ -33,10 +33,9 @@
       font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
       color: var(--ink);
       background:
-        radial-gradient(circle at 12% 16%, rgba(238, 191, 101, 0.35), transparent 34%),
-        radial-gradient(circle at 84% 22%, rgba(14, 107, 111, 0.2), transparent 36%),
-        linear-gradient(130deg, #f6f4ee 0%, #f3f6ef 50%, #f4f1e7 100%);
-      overflow-x: hidden;
+        radial-gradient(circle at 12% 16%, rgba(138, 170, 79, 0.18), transparent 34%),
+        radial-gradient(circle at 84% 22%, rgba(115, 146, 63, 0.14), transparent 36%),
+        linear-gradient(130deg, #f6f7f1 0%, #f5f7ef 50%, #f1f4e8 100%);
     }
 
     body::before {
@@ -44,8 +43,8 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background-image: linear-gradient(to right, rgba(14, 107, 111, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(14, 107, 111, 0.05) 1px, transparent 1px);
+      background-image: linear-gradient(to right, rgba(115, 146, 63, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(115, 146, 63, 0.04) 1px, transparent 1px);
       background-size: 28px 28px;
       mask-image: radial-gradient(circle at center, black 56%, transparent 100%);
     }
@@ -75,7 +74,7 @@
       width: 220px;
       height: 220px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(238, 191, 101, 0.35) 0%, rgba(238, 191, 101, 0) 70%);
+      background: radial-gradient(circle, rgba(138, 170, 79, 0.25) 0%, rgba(138, 170, 79, 0) 70%);
       right: -50px;
       top: -50px;
     }
@@ -126,13 +125,13 @@
 
     .nav-link:hover {
       transform: translateY(-1px);
-      box-shadow: 0 8px 16px rgba(14, 107, 111, 0.16);
+      box-shadow: 0 8px 16px rgba(115, 146, 63, 0.2);
     }
 
     .badge {
-      border: 1px solid rgba(14, 107, 111, 0.25);
-      background: rgba(14, 107, 111, 0.08);
-      color: #0e5c60;
+      border: 1px solid rgba(115, 146, 63, 0.28);
+      background: rgba(138, 170, 79, 0.14);
+      color: #355015;
       border-radius: 999px;
       padding: 8px 12px;
       font-size: 0.82rem;
@@ -194,8 +193,8 @@
       width: 30px;
       height: 30px;
       border-radius: 50%;
-      border: 1px solid rgba(14, 107, 111, 0.35);
-      background: rgba(14, 107, 111, 0.1);
+      border: 1px solid rgba(115, 146, 63, 0.35);
+      background: rgba(138, 170, 79, 0.16);
       color: var(--teal-strong);
       font-size: 0.85rem;
       font-weight: 700;
@@ -230,9 +229,9 @@
     input:focus,
     select:focus,
     textarea:focus {
-      outline: 2px solid rgba(14, 107, 111, 0.25);
+      outline: 2px solid rgba(115, 146, 63, 0.25);
       outline-offset: 1px;
-      border-color: rgba(14, 107, 111, 0.35);
+      border-color: rgba(115, 146, 63, 0.35);
     }
 
     textarea {
@@ -243,18 +242,18 @@
 
     button {
       border: none;
-      background: linear-gradient(135deg, var(--teal) 0%, #167b75 100%);
-      color: #fff;
+      background: linear-gradient(135deg, var(--teal) 0%, #91ae61 100%);
+      color: #1f2718;
       cursor: pointer;
       font-weight: 600;
       transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
-      box-shadow: 0 8px 16px rgba(14, 107, 111, 0.2);
+      box-shadow: 0 8px 16px rgba(115, 146, 63, 0.24);
     }
 
     button:hover {
-      background: linear-gradient(135deg, var(--teal-strong) 0%, #0e6661 100%);
+      background: linear-gradient(135deg, var(--teal-strong) 0%, #6f8c45 100%);
       transform: translateY(-1px);
-      box-shadow: 0 12px 20px rgba(14, 107, 111, 0.24);
+      box-shadow: 0 12px 20px rgba(115, 146, 63, 0.26);
     }
 
     button:disabled {
@@ -299,12 +298,12 @@
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      background: rgba(238, 191, 101, 0.22);
-      color: #7a5500;
+      background: rgba(138, 170, 79, 0.2);
+      color: #355015;
       padding: 6px 11px;
       border-radius: 999px;
       font-size: 0.78rem;
-      border: 1px solid rgba(205, 141, 14, 0.25);
+      border: 1px solid rgba(115, 146, 63, 0.25);
     }
 
     .panel {
@@ -336,16 +335,16 @@
     }
 
     .token-state.active {
-      border-color: rgba(14, 107, 111, 0.35);
-      background: rgba(14, 107, 111, 0.08);
-      color: #145a5d;
+      border-color: rgba(115, 146, 63, 0.35);
+      background: rgba(138, 170, 79, 0.1);
+      color: #355015;
     }
 
     .token-preview {
       margin-top: 8px;
       font-family: Consolas, Monaco, monospace;
       font-size: 0.78rem;
-      color: #24484b;
+      color: #4c5e35;
       word-break: break-word;
     }
 
@@ -364,7 +363,7 @@
       border-radius: 10px;
       padding: 10px;
       font-size: 0.92rem;
-      color: #35484b;
+      color: #4c5e35;
     }
 
     .ideas-list {
@@ -409,7 +408,7 @@
     .detail-text {
       margin: 0;
       font-size: 0.88rem;
-      color: #465d60;
+      color: #4c5e35;
       line-height: 1.45;
     }
 
@@ -426,9 +425,9 @@
       display: inline-flex;
       width: fit-content;
       text-decoration: none;
-      color: #0f5f5b;
-      background: #ecf8f5;
-      border: 1px solid rgba(14, 107, 111, 0.24);
+      color: #466418;
+      background: #f4fadc;
+      border: 1px solid rgba(115, 146, 63, 0.24);
       border-radius: 8px;
       padding: 6px 9px;
       font-size: 0.84rem;
@@ -444,7 +443,7 @@
       border-radius: 999px;
       margin-right: 8px;
       background: radial-gradient(circle at 30% 30%, #ffe4a6 0%, var(--sun) 100%);
-      box-shadow: 0 4px 10px rgba(200, 129, 7, 0.24);
+      box-shadow: 0 4px 10px rgba(115, 146, 63, 0.24);
     }
 
     @keyframes fade-up {
@@ -458,11 +457,7 @@
       }
     }
 
-    @media (max-width: 980px) {
-      .main {
-        grid-template-columns: 1fr;
-      }
-    }
+    
 
     @media (max-width: 680px) {
       .hero {

@@ -45,6 +45,8 @@ npm run client:build
 
 ## Screenshots
 
+Portal screens:
+
 Home page:
 
 ![Home page](docs/screenshots/home.png)
@@ -56,6 +58,8 @@ User portal:
 Admin portal:
 
 ![Admin portal](docs/screenshots/admin.png)
+
+Proof screens:
 
 Speckit proof:
 
